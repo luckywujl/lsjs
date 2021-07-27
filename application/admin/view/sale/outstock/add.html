@@ -1,0 +1,74 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+	 <center><h3>{:__('销售出库')}</h3></center>
+
+	 <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_user_name')}:</label>
+        <div class="col-xs-12 col-sm-7">
+            <input id="c-product_user_id" data-rule="required" class="form-control selectpage" data-source="user/user/index" data-field="name" data-primary-key="id" name="row[product_user_id]" type="text">
+        </div>
+        <button type="button" class="btn btn-success btn-adduser">{:__('Adduser')}</button>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_tel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_tel" data-rule="required" class="form-control "  name="row[product_tel]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_address')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_address" data-rule="required" class="form-control "  name="row[product_address]" type="text">
+        </div>
+    </div>
+    
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Instock_product_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-instock_product_name" data-rule="required" class="form-control selectpage" data-source="base/production/getproductname" data-field="production_name" data-primary-key="production_name" name="row[instock_product_name]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Instock_product_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-instock_product_id" class="form-control selectpage" data-source="base/production/getproducttype" data-field="production_type" data-primary-key="production_id"name="row[instock_product_id]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Instock_outnumber')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-instock_outnumber" class="form-control" name="row[instock_outnumber]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_sale_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_sale_type" data-rule="required" class="form-control selectpage" data-source="base/saletype/index" data-field="sale_type" data-primary-key="sale_type" name="row[product_sale_type]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_operator')}:</label>
+        <div class="col-xs-12 col-sm-6">
+            <input id="c-log_operator"  class="form-control selectpage" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname" name="row[log_operator]" type="text">
+        </div>
+        <label class="control-label col-xs-12 col-sm-2"><font color="red">{:__('为空则暂不派单')}</font></label>
+    </div>
+    <div class="form-group">
+    	<label  class="control-label col-xs-12 col-sm-2">{:__('Instock_remark')}:</label>
+    	<div class="col-xs-12 col-sm-8">
+  			  	<textarea id="c-instock_remark" class="form-control editor" rows="4" name="row[instock_remark]" cols="50"></textarea>
+		</div>
+	</div>
+   <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-10" ><font color="red">{:__('注：仅限整机产品销售出库时使用，完成销售出库，系统将自动完成建档操作！如无需建档，请至“仓储管理->出库操作”中完成出库！')}</font></label>
+        
+    </div> 
+    
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

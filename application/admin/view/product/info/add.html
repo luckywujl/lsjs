@@ -1,0 +1,160 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_code" class="form-control" name="row[product_code]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_name" class="form-control" name="row[product_name]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_type" class="form-control" name="row[product_type]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_product_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_product_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[product_product_date]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_instock_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_instock_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[product_instock_date]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_sale_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_sale_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[product_sale_date]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_install_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_install_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[product_install_date]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_log_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_log_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[product_log_date]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_next_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_next_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[product_next_date]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_replacement_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_replacement_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[product_replacement_date]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_water_gage')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_water_gage" class="form-control" name="row[product_water_gage]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_consumable_material')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_consumable_material" class="form-control" name="row[product_consumable_material]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_remark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-product_remark" class="form-control " rows="5" name="row[product_remark]" cols="50"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_user_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_user_id" data-rule="required" data-source="product/user/index" class="form-control selectpage" name="row[product_user_id]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_user_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_user_name" class="form-control" name="row[product_user_name]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_tel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_tel" class="form-control" name="row[product_tel]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_address')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_address" class="form-control" name="row[product_address]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_sale_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_sale_type" class="form-control" name="row[product_sale_type]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_install_place')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_install_place" class="form-control" name="row[product_install_place]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_install_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_install_type" class="form-control" name="row[product_install_type]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_purpose')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_purpose" class="form-control" name="row[product_purpose]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            
+            <div class="radio">
+            {foreach name="productStatusList" item="vo"}
+            <label for="row[product_status]-{$key}"><input id="row[product_status]-{$key}" name="row[product_status]" type="radio" value="{$key}" {in name="key" value="0"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_pic')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_pic" class="form-control" name="row[product_pic]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Company_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-company_id" data-rule="required" data-source="company/index" class="form-control selectpage" name="row[company_id]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
