@@ -62,5 +62,6 @@ return [
     'User.number'         => '购买台数',
     'User.area'           => '所属区域',
     'User.type'           => '客户类型',
+    'Callback'				  => '回访',
     'User.company_id'     => '数据归属'
 ];

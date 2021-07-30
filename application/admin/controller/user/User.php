@@ -19,7 +19,7 @@ class User extends Backend
     protected $model = null;
     protected $dataLimit = 'personal';
     protected $dataLimitField = 'company_id';
-    protected $searchFields = 'name,nickname,user_tel,username,mobile';
+    protected $searchFields = ['name','nickname','address','username','mobile'];
     protected $noNeedRight = ['getuserinfo'];
 
     public function _initialize()
@@ -40,7 +40,7 @@ class User extends Backend
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
     /**
-     * 根据车型获取车型皮重
+     * 用户信息
      */
     public function getuserinfo()
     {

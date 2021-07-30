@@ -55,7 +55,7 @@ class Dispatch extends Backend
 
             $list = $this->model
                 ->where($where)
-                ->where(['log_status'=>['in',[0,1]],'log_type'=>['like','%销售%']])  //只显示工装状态包含 销售字样的且状态为建单和派工的日志记录
+                ->where(['log_status'=>['in',[0,1]],'log_type'=>'新机销售'])  //只显示工装状态包含 销售字样的且状态为建单和派工的日志记录
                 ->order($sort, $order)
                 ->paginate($limit);
 
@@ -85,7 +85,9 @@ class Dispatch extends Backend
             if ($params) {
                 $params = $this->preExcludeFields($params);
                 $params['log_status'] = 1; //派单状态
-                $params['log_type'] = '销售出库->安装派单';
+                $params['log_dispatcher'] = $this->auth->nickname; //派单人
+                //$params['log_type'] = '销售出库->安装派单';
+                $params['log_log'] = $params['log_log'].date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'派单，安排'.$params['log_operator'].'安装；';
                 $result = false;
                 Db::startTrans();
                 try {

@@ -3,6 +3,7 @@
 namespace app\admin\controller\sale;
 
 use app\common\controller\Backend;
+use think\Db;
 
 /**
  * 服务日志
@@ -17,6 +18,9 @@ class Callback extends Backend
      * @var \app\admin\model\sale\Callback
      */
     protected $model = null;
+    protected $dataLimit = 'personal';
+    protected $dataLimitField = 'company_id';
+    protected $searchFields = 'log_code,log_tel,log_address,log_operator';
 
     public function _initialize()
     {
@@ -56,6 +60,7 @@ class Callback extends Backend
             $list = $this->model
                     ->with(['user'])
                     ->where($where)
+                    ->where(['log_status'=>['in',[0,1,2,3,4,5]],'log_type'=>'新机销售'])  //只显示工装状态包含 销售字样的且状态为完工待回护，延后，取消服务，结单的日志记录
                     ->order($sort, $order)
                     ->paginate($limit);
 
@@ -68,6 +73,62 @@ class Callback extends Backend
 
             return json($result);
         }
+        return $this->view->fetch();
+    }
+    
+    /**
+     * 销售回访
+     */
+    public function edit($ids = null)
+    {
+        $row = $this->model->get($ids);
+        if (!$row) {
+            $this->error(__('No Results were found'));
+        }
+        $adminIds = $this->getDataLimitAdminIds();
+        if (is_array($adminIds)) {
+            if (!in_array($row[$this->dataLimitField], $adminIds)) {
+                $this->error(__('You have no permission'));
+            }
+        }
+        if ($this->request->isPost()) {
+            $params = $this->request->post("row/a");
+            if ($params) {
+                $params = $this->preExcludeFields($params);
+                $params['log_callbacker'] = $this->auth->nickname; //派单人
+                $params['log_log'] = $params['log_log'].date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'进行销售回访；';
+                
+                //$params['log_type'] = '销售出库->安装派单->销售回访';
+                $result = false;
+                Db::startTrans();
+                try {
+                    //是否采用模型验证
+                    if ($this->modelValidate) {
+                        $name = str_replace("\\model\\", "\\validate\\", get_class($this->model));
+                        $validate = is_bool($this->modelValidate) ? ($this->modelSceneValidate ? $name . '.edit' : $name) : $this->modelValidate;
+                        $row->validateFailException(true)->validate($validate);
+                    }
+                    $result = $row->allowField(true)->save($params);
+                    Db::commit();
+                } catch (ValidateException $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                } catch (PDOException $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                } catch (Exception $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                }
+                if ($result !== false) {
+                    $this->success();
+                } else {
+                    $this->error(__('No rows were updated'));
+                }
+            }
+            $this->error(__('Parameter %s can not be empty', ''));
+        }
+        $this->view->assign("row", $row);
         return $this->view->fetch();
     }
 

@@ -67,6 +67,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
             // 为表格绑定事件
             Table.api.bindevent(table);
+            //关闭时执行
+            parent.window.$(".layui-layer-iframe").find(".layui-layer-close").on('click',function () {
+                    var ids = Table.api.selectedids(table);   //获取选中的id，获取到的是个数组
+                    Fast.api.close(ids); //往父窗口回调参数 
+                  
+             });
         },
         add: function () {
             Controller.api.bindevent();

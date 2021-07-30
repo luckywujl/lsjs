@@ -28,7 +28,7 @@ class Production extends Backend
     protected $dataLimit = 'personal';
     protected $dataLimitField = 'company_id';
     protected $searchFields = 'production_name,production_type,production_consumable_material,production_replacement_cycle';
-	 protected $noNeedRight = ['getproductname','getproducttype'];
+	 protected $noNeedRight = ['getproductname','getproducttype','getproductinfo'];
     public function _initialize()
     {
         parent::_initialize();
@@ -260,5 +260,27 @@ class Production extends Backend
         }
         return $this->view->fetch();
     }
+   
+    /**
+     * 获取产品信息
+     */
+    public function getproductinfo()
+    {
+      if (!empty($this->request->post("production_id"))){
+    	
+    	$production_id = $this->request->post("production_id");
+    	$production_info = $this->model
+        ->where(['production_id'=>$production_id,'company_id'=>$this->auth->company_id])
+        ->find();   
+       if ($production_info){
+       	    	   
+       		$this->success(null,null,$production_info);
+       	}else {
+        	 $this->error('产品信息异常，请核实',null,null);
+       	}   	 
+       }   
+    }
+
+
 
 }

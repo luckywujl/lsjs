@@ -143,7 +143,7 @@ class Outstock extends Backend
         	       //生成单号
                 $main_1 = $log
                 ->where('log_date','between time',[date('Y-m-d 00:00:01'),date('Y-m-d 23:59:59')])
-                ->where(['company_id'=>$this->auth->company_id,'log_type'=>'销售出库']) //出库单
+                ->where(['company_id'=>$this->auth->company_id,'log_type'=>'新机销售']) //出库单
             	 -> order('log_code','desc')->limit(1)->select();
         	       if (count($main_1)>0) {
         	       $item = $main_1[0];
@@ -154,7 +154,7 @@ class Outstock extends Backend
         	  	   	$product_log['log_code']='X'.date('Ymd').'0001';
         	      	}
         	      //完成单号生成
-        	       $product_log['log_type'] = '销售出库';
+        	       $product_log['log_type'] = '新机销售';
         	       $product_log['log_date'] = $params['instock_date'];//统一日期
         	       $product_log['log_remark'] = $params['instock_remark'];
         	       $product_log['log_address'] = $params['product_address'];
@@ -164,8 +164,10 @@ class Outstock extends Backend
         	       	$product_log['log_operator'] = $params['log_operator'];
         	       	$product_log['log_status'] = 1;//派工
         	       	$product_log['log_dispatcher'] = $this->auth->nickname;//派单人
+        	       	$product_log['log_log'] = date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'销售出库，并安排'.$params['log_operator'].'安装；';
         	       }else{
         	         $product_log['log_status'] = 0;//建单
+        	         $product_log['log_log'] = date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'销售出库；';
         	       }
         	       $product_log['company_id'] = $this->auth->company_id;
         	      

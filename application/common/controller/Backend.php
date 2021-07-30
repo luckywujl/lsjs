@@ -12,6 +12,8 @@ use think\Model;
 use think\Session;
 use fast\Tree;
 use think\Validate;
+use think\Db;
+use app\admin\model\setting as setting;
 
 /**
  * 后台控制器基类
@@ -221,6 +223,9 @@ class Backend extends Controller
         $this->loadlang($controllername);
         //渲染站点配置
         $this->assign('site', $site);
+        $company = new setting\Company();
+        $company_info = $company->where(['company_id'=>$this->auth->company_id])->find();
+        $this->assign('company',$company_info);
         //渲染配置信息
         $this->assign('config', $config);
         //渲染权限对象

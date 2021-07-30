@@ -25,6 +25,7 @@ class Callback extends Model
 
     // 追加属性
     protected $append = [
+    	  'log_date_text',
         'log_status_text'
     ];
     
@@ -34,6 +35,12 @@ class Callback extends Model
     {
         return ['0' => __('Log_status 0'), '1' => __('Log_status 1'), '2' => __('Log_status 2'), '3' => __('Log_status 3'), '4' => __('Log_status 4'), '5' => __('Log_status 5')];
     }
+    
+    public function getLogDateTextAttr($value, $data)
+    {
+        $value = $value ? $value : (isset($data['log_date']) ? $data['log_date'] : '');
+        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
+    }
 
 
     public function getLogStatusTextAttr($value, $data)
@@ -41,6 +48,11 @@ class Callback extends Model
         $value = $value ? $value : (isset($data['log_status']) ? $data['log_status'] : '');
         $list = $this->getLogStatusList();
         return isset($list[$value]) ? $list[$value] : '';
+    }
+
+    protected function setLogDateAttr($value)
+    {
+        return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }
 
 

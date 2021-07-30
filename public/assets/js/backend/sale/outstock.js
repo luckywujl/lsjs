@@ -1,4 +1,4 @@
-define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
+define(['jquery', 'bootstrap', 'backend', 'table', 'form','GridEdit'], function ($, undefined, Backend, Table, Form) {
 
     var Controller = {
         index: function () {
@@ -37,7 +37,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'instock_stock_number', title: __('Instock_stock_number')},
                         {field: 'instock_operator', title: __('Instock_operator'), operate: 'LIKE'},
                         //{field: 'instock_type', title: __('Instock_type'), searchList: {"0":__('Instock_type 0'),"1":__('Instock_type 1')}, formatter: Table.api.formatter.normal},
-                        {field: 'instock_remark', title: __('Instock_remark')},
+                        {field: 'instock_remark', title: __('Instock_remark'), align:'left'},
                         //{field: 'company_id', title: __('Company_id'), operate: 'LIKE'},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
