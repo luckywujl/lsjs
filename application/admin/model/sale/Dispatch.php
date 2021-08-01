@@ -13,7 +13,7 @@ class Dispatch extends Model
     
 
     // 表名
-    protected $name = 'product_log';
+    protected $name = 'order_main';
     
     // 自动写入时间戳字段
     protected $autoWriteTimestamp = false;
@@ -25,33 +25,46 @@ class Dispatch extends Model
 
     // 追加属性
     protected $append = [
-        'log_date_text',
-        'log_status_text'
+        'order_datetime_text',
+        'order_service_datetime_text',
+        'order_status_text'
     ];
     
 
     
-    public function getLogStatusList()
+    public function getOrderStatusList()
     {
-        return ['0' => __('Log_status 0'), '1' => __('Log_status 1')];
+        return ['0' => __('Order_status 0'), '1' => __('Order_status 1'), '3' => __('Order_status 3')];
     }
 
 
-    public function getLogDateTextAttr($value, $data)
+    public function getOrderDatetimeTextAttr($value, $data)
     {
-        $value = $value ? $value : (isset($data['log_date']) ? $data['log_date'] : '');
+        $value = $value ? $value : (isset($data['order_datetime']) ? $data['order_datetime'] : '');
         return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
     }
 
 
-    public function getLogStatusTextAttr($value, $data)
+    public function getOrderServiceDatetimeTextAttr($value, $data)
     {
-        $value = $value ? $value : (isset($data['log_status']) ? $data['log_status'] : '');
-        $list = $this->getLogStatusList();
+        $value = $value ? $value : (isset($data['order_service_datetime']) ? $data['order_service_datetime'] : '');
+        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
+    }
+
+
+    public function getOrderStatusTextAttr($value, $data)
+    {
+        $value = $value ? $value : (isset($data['order_status']) ? $data['order_status'] : '');
+        $list = $this->getOrderStatusList();
         return isset($list[$value]) ? $list[$value] : '';
     }
 
-    protected function setLogDateAttr($value)
+    protected function setOrderDatetimeAttr($value)
+    {
+        return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
+    }
+
+    protected function setOrderServiceDatetimeAttr($value)
     {
         return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:111:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/public/../application/admin/view/sale/dispatch/edit.html";i:1627449658;s:97:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:94:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:96:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:111:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/public/../application/admin/view/sale/dispatch/edit.html";i:1627785106;s:97:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:94:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:96:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -60,65 +60,117 @@
                             <?php endif; ?>
                             <div class="content">
                                 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
-	 <center><h3><?php echo __('安装派单'); ?></h3></center>
-	  <div class="form-group">
-       
-    </div>
+
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_code'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_code" class="form-control" readonly="readonly" name="row[log_code]" type="text" value="<?php echo htmlentities($row['log_code']); ?>">
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Order_code'); ?>:</label>
+        <div class="col-xs-12 col-sm-2" >
+            <input id="c-order_code" data-rule="required" readonly="readonly" class="form-control" name="row[order_code]" type="text" value="<?php echo htmlentities($row['order_code']); ?>">
         </div>
-    </div>
+        <div class="col-xs-12 col-sm-2"  hidden="hidden">
+            <input id="c-order_id" data-rule="required" readonly="readonly" class="form-control" name="row[order_id]" type="text" value="<?php echo htmlentities($row['order_id']); ?>">
+        </div>
+    
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_service_datetime'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_service_datetime" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[order_service_datetime]" type="text" value="<?php echo $row['order_service_datetime']?datetime($row['order_service_datetime']):''; ?>">
+        </div>
+        
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_sale_type'); ?>:</label>
+        <div class="col-xs-12 col-sm-2" >
+            <input id="c-order_sale_type"  readonly="readonly" class="form-control" name="row[order_sale_type]" type="text" value="<?php echo htmlentities($row['order_sale_type']); ?>">
+        </div>
    
+        
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Order_user_name'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_user_name" data-rule="required" class="form-control" name="row[order_user_name]" type="text" value="<?php echo htmlentities($row['order_user_name']); ?>">
+        </div>
     
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_date'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_date" class="form-control datetimepicker" data-rule="required" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[log_date]" type="text" value="<?php echo $row['log_date']?datetime($row['log_date']):''; ?>">
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_user_tel'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_user_tel" class="form-control" name="row[order_user_tel]" type="text" value="<?php echo htmlentities($row['order_user_tel']); ?>">
         </div>
+    
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_user_address'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_user_address" class="form-control" name="row[order_user_address]" type="text" value="<?php echo htmlentities($row['order_user_address']); ?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Order_number_total'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_number_total" class="form-control" readonly="readonly"  name="row[order_number_total]" type="number" value="<?php echo htmlentities($row['order_number_total']); ?>">
+        </div>
+    
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_amount_total'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_amount_total" class="form-control" readonly="readonly"  name="row[order_amount_total]" type="number" value="<?php echo htmlentities($row['order_amount_total']); ?>">
+        </div>
+   
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_paymentmode'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_paymentmode" class="form-control" name="row[order_paymentmode]" type="text" value="<?php echo htmlentities($row['order_paymentmode']); ?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Order_dispatcher'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_dispatcher" class="form-control" readonly="readonly" name="row[order_dispatcher]" type="text" value="<?php echo htmlentities($row['order_dispatcher']); ?>">
+        </div>
+        
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_saleman'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_saleman" class="form-control selectpage" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname" name="row[order_saleman]" type="text" value="<?php echo htmlentities($row['order_saleman']); ?>">
+        </div>
+        
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_engineer'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_engineer" data-rule="required" class="form-control selectpage" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname" name="row[order_engineer]" type="text" value="<?php echo htmlentities($row['order_engineer']); ?>">
+        </div>
+    </div>
+    <div class="form-group">
+        
+        
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Order_operator'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_operator" readonly="readonly" class="form-control" name="row[order_operator]" type="text" value="<?php echo htmlentities($row['order_operator']); ?>">
+        </div>
+   
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_remark'); ?>:</label>
+        <div class="col-xs-12 col-sm-4">
+            <textarea id="c-order_remark" class="form-control " rows="1" name="row[order_remark]" cols="50"><?php echo htmlentities($row['order_remark']); ?></textarea>
+        </div>
+        <button type="button" class="btn btn-info btn-printing  btn-embossed"><?php echo __('打印'); ?></button>
+    </div>
+    <div class="form-group">
+        
     </div>
     
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_remark'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-        		<textarea id="c-log_remark" class="form-control " rows="5" name="row[log_remark]" cols="50"><?php echo htmlentities($row['log_remark']); ?></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_address'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_address" class="form-control" data-rule="required" name="row[log_address]" type="text" value="<?php echo htmlentities($row['log_address']); ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_tel'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_tel" class="form-control" data-rule="required" name="row[log_tel]" type="text" value="<?php echo htmlentities($row['log_tel']); ?>">
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_operator'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-        		<input id="c-log_operator"  class="form-control selectpage" data-rule="required" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname" name="row[log_operator]" type="text" value="<?php echo htmlentities($row['log_operator']); ?>">
-           
-        </div>
-    </div>
-     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_log'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <textarea id="c-log_log" class="form-control " rows="3" name="row[log_log]" cols="50"><?php echo htmlentities($row['log_log']); ?></textarea>
-        </div>
-    </div>
     <div class="form-group layer-footer">
         <label class="control-label col-xs-12 col-sm-2"></label>
         <div class="col-xs-12 col-sm-8">
-            <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('OK'); ?></button>
+            <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('确定派单'); ?></button>
             <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
         </div>
     </div>
 </form>
+<div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    <div id="toolbar" class="toolbar">
+                        <a href="javascript:;" class="btn btn-primary btn-refresh" title="<?php echo __('Refresh'); ?>" ><i class="fa fa-refresh"></i> </a>
+                        
+                    </div>
+                    <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                           data-operate-edit="<?php echo $auth->check('sale/order/edit'); ?>" 
+                           
+                           width="50%">
+                    </table>
+                </div>
+            </div>
+        </div>
 
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:107:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/public/../application/admin/view/sale/order/add.html";i:1627635760;s:97:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:94:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:96:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:107:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/public/../application/admin/view/sale/order/add.html";i:1627701483;s:97:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:94:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:96:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -70,7 +70,7 @@
         		<input id="c-order_user_id" data-rule="required" class="form-control selectpage" data-source="user/user/index" data-field="name" data-primary-key="id" name="row[order_user_id]" type="text">
         </div>
          
-        <div class="col-xs-12 col-sm-8" hidden="hidden">
+        <div class="col-xs-12 col-sm-8" hidden="hidden" >
             <input id="c-order_user_name" data-rule="required" class="form-control" name="row[order_user_name]" type="text">
         		<input id="c-order_id"  class="form-control"  type="text">
         </div>
@@ -131,8 +131,8 @@
             <textarea id="c-order_remark" class="form-control " rows="1" name="row[order_remark]" cols="50"></textarea>
         </div>
             <button type="button" id="new"  class="btn btn-info btn-embossed btn-new"><?php echo __('新建'); ?></button>
-            <button type="button" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
-            <button type="button" class="btn btn-info btn-printing  btn-embossed"><?php echo __('打印'); ?></button>
+            
+            <button type="button" class="btn btn-info btn-embossed btn-printing "><?php echo __('打印'); ?></button>
             <button type="button" class="btn btn-success btn-embossed btn-verify"><?php echo __('保存'); ?></button>
            
             

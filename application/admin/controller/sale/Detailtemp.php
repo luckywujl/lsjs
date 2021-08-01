@@ -20,7 +20,7 @@ class Detailtemp extends Backend
     protected $model = null;
     protected $dataLimit = 'personal';
     protected $dataLimitField = 'company_id';
-    protected $noNeedRight = ['index','add','edit','del'];
+    protected $noNeedRight = ['index','add','edit','del','cleardetail'];
     protected $searchFields = 'detail_product_name';
 
     public function _initialize()
@@ -259,5 +259,19 @@ class Detailtemp extends Backend
 
      return $detail_sum;
     }
+    /**
+     * 清空明细数据
+     */
+    public function cleardetail()
+    {
+    	  list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+        $detai_result = $this->model
+           	   ->where($where)
+            	->where(['detail_main_id'=>1,'detail_operator'=>$this->auth->nickname])
+            	->delete();
+          $this->success('OK',null,null);
+           
+    }
+
 
 }

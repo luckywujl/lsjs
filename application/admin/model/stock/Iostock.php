@@ -33,7 +33,7 @@ class Iostock extends Model
     
     public function getIostockTypeList()
     {
-        return ['0' => __('Iostock_type 0'), '1' => __('Iostock_type 1'), '2' => __('Iostock_type 2')];
+        return ['0' => __('Iostock_type 0'), '1' => __('Iostock_type 1'), '2' => __('Iostock_type 2'), '2' => __('Iostock_type 2')];
     }
 
 

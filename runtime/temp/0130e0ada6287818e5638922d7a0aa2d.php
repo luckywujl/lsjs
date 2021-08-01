@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:112:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/public/../application/admin/view/install/mytask/edit.html";i:1627456934;s:97:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:94:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:96:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:112:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/public/../application/admin/view/install/mytask/edit.html";i:1627828800;s:97:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:94:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:96:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -64,131 +64,71 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_code'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-log_code" class="form-control" name="row[log_code]" type="text" value="<?php echo htmlentities($row['log_code']); ?>">
+            <input id="c-log_code" readonly="readonly" class="form-control" name="row[log_code]" type="text" value="<?php echo htmlentities($row['log_code']); ?>">
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Product_id'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-product_id" data-rule="required" data-source="product/index" class="form-control selectpage" name="row[product_id]" type="text" value="<?php echo htmlentities($row['product_id']); ?>">
-        </div>
-    </div>
+    
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_type'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-log_type" class="form-control" name="row[log_type]" type="text" value="<?php echo htmlentities($row['log_type']); ?>">
+            <input id="c-log_type" readonly="readonly" class="form-control" name="row[log_type]" type="text" value="<?php echo htmlentities($row['log_type']); ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_date'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-log_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[log_date]" type="text" value="<?php echo $row['log_date']?datetime($row['log_date']):''; ?>">
+            <input id="c-log_date" readonly="readonly" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[log_date]" type="text" value="<?php echo $row['log_date']?datetime($row['log_date']):''; ?>">
         </div>
     </div>
+    
+   
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_water_gage'); ?>:</label>
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_user_name'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-log_water_gage" class="form-control" name="row[log_water_gage]" type="text" value="<?php echo htmlentities($row['log_water_gage']); ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_remark'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_remark" class="form-control" name="row[log_remark]" type="text" value="<?php echo htmlentities($row['log_remark']); ?>">
+            <input id="c-log_user_name" readonly="readonly" class="form-control" name="row[log_user_name]" type="text" value="<?php echo htmlentities($row['log_user_name']); ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_address'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-log_address" class="form-control" name="row[log_address]" type="text" value="<?php echo htmlentities($row['log_address']); ?>">
+            <input id="c-log_address" readonly="readonly" class="form-control" name="row[log_address]" type="text" value="<?php echo htmlentities($row['log_address']); ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_tel'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-log_tel" class="form-control" name="row[log_tel]" type="text" value="<?php echo htmlentities($row['log_tel']); ?>">
+            <input id="c-log_tel" class="form-control" readonly="readonly" name="row[log_tel]" type="text" value="<?php echo htmlentities($row['log_tel']); ?>">
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_user_id'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_user_id" data-rule="required" data-source="log/user/index" class="form-control selectpage" name="row[log_user_id]" type="text" value="<?php echo htmlentities($row['log_user_id']); ?>">
-        </div>
-    </div>
+    
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_operator'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-log_operator" class="form-control" name="row[log_operator]" type="text" value="<?php echo htmlentities($row['log_operator']); ?>">
+            <input id="c-log_operator" readonly="readonly" class="form-control" name="row[log_operator]" type="text" value="<?php echo htmlentities($row['log_operator']); ?>">
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_pic'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_pic" class="form-control" name="row[log_pic]" type="text" value="<?php echo htmlentities($row['log_pic']); ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_dispatcher'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_dispatcher" class="form-control" name="row[log_dispatcher]" type="text" value="<?php echo htmlentities($row['log_dispatcher']); ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_valuation'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_valuation" class="form-control" name="row[log_valuation]" type="text" value="<?php echo htmlentities($row['log_valuation']); ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_valuation_star'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_valuation_star" class="form-control" name="row[log_valuation_star]" type="text" value="<?php echo htmlentities($row['log_valuation_star']); ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_status'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            
-            <div class="radio">
-            <?php if(is_array($logStatusList) || $logStatusList instanceof \think\Collection || $logStatusList instanceof \think\Paginator): if( count($logStatusList)==0 ) : echo "" ;else: foreach($logStatusList as $key=>$vo): ?>
-            <label for="row[log_status]-<?php echo $key; ?>"><input id="row[log_status]-<?php echo $key; ?>" name="row[log_status]" type="radio" value="<?php echo $key; ?>" <?php if(in_array(($key), is_array($row['log_status'])?$row['log_status']:explode(',',$row['log_status']))): ?>checked<?php endif; ?> /> <?php echo $vo; ?></label> 
-            <?php endforeach; endif; else: echo "" ;endif; ?>
-            </div>
-
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_callbacker'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-log_callbacker" class="form-control" name="row[log_callbacker]" type="text" value="<?php echo htmlentities($row['log_callbacker']); ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_callback'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <textarea id="c-log_callback" class="form-control " rows="5" name="row[log_callback]" cols="50"><?php echo htmlentities($row['log_callback']); ?></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_log'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <textarea id="c-log_log" class="form-control " rows="5" name="row[log_log]" cols="50"><?php echo htmlentities($row['log_log']); ?></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Company_id'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-company_id" data-rule="required" data-source="company/index" class="form-control selectpage" name="row[company_id]" type="text" value="<?php echo htmlentities($row['company_id']); ?>">
-        </div>
-    </div>
-    <div class="form-group layer-footer">
-        <label class="control-label col-xs-12 col-sm-2"></label>
-        <div class="col-xs-12 col-sm-8">
-            <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('OK'); ?></button>
-            <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
-        </div>
-    </div>
+   
+    
+    
+    
+    
 </form>
+		<div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    <div id="toolbar" class="toolbar">
+                        <a href="javascript:;" class="btn btn-primary btn-refresh" title="<?php echo __('Refresh'); ?>" ><i class="fa fa-refresh"></i> </a>
+                        <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled <?php echo $auth->check('install/mytask/edit')?'':'hide'; ?>" title="<?php echo __('施工记录'); ?>" ><i class="fa fa-pencil"></i> <?php echo __('施工'); ?></a>
+                    </div>
+                    <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                           data-operate-edit="<?php echo $auth->check('sale/order/edit'); ?>" 
+                           
+                           width="50%">
+                    </table>
+                </div>
+            </div>
+        </div>
+
 
                             </div>
                         </div>

@@ -33,7 +33,7 @@ class Callback extends Model
     
     public function getLogStatusList()
     {
-        return ['0' => __('Log_status 0'), '1' => __('Log_status 1'), '2' => __('Log_status 2'), '3' => __('Log_status 3'), '4' => __('Log_status 4'), '5' => __('Log_status 5')];
+        return ['2' => __('Log_status 2'), '3' => __('Log_status 3'), '4' => __('Log_status 4'), '5' => __('Log_status 5')];
     }
     
     public function getLogDateTextAttr($value, $data)

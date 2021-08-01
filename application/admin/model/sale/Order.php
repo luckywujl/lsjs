@@ -34,7 +34,7 @@ class Order extends Model
     
     public function getOrderStatusList()
     {
-        return ['0' => __('Order_status 0'), '1' => __('Order_status 1'), '2' => __('Order_status 2')];
+        return ['0' => __('Order_status 0'), '1' => __('Order_status 1'), '2' => __('Order_status 2'), '3' => __('Order_status 3'), '4' => __('Order_status 4')];
     }
 
 

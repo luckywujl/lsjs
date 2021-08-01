@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:112:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/public/../application/admin/view/sale/dispatch/index.html";i:1627404517;s:97:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:94:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:96:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:112:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/public/../application/admin/view/sale/dispatch/index.html";i:1627720211;s:97:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:94:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:96:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -60,15 +60,17 @@
                             <?php endif; ?>
                             <div class="content">
                                 <div class="panel panel-default panel-intro">
+    
     <div class="panel-heading">
         <?php echo build_heading(null,FALSE); ?>
-        <ul class="nav nav-tabs" data-field="log_status">
-            <li class="<?php echo \think\Request::instance()->get('log_status') === null ? 'active' : ''; ?>"><a href="#t-all" data-value="" data-toggle="tab"><?php echo __('All'); ?></a></li>
-            <?php if(is_array($logStatusList) || $logStatusList instanceof \think\Collection || $logStatusList instanceof \think\Paginator): if( count($logStatusList)==0 ) : echo "" ;else: foreach($logStatusList as $key=>$vo): ?>
-            <li class="<?php echo \think\Request::instance()->get('log_status') === (string)$key ? 'active' : ''; ?>"><a href="#t-<?php echo $key; ?>" data-value="<?php echo $key; ?>" data-toggle="tab"><?php echo $vo; ?></a></li>
+        <ul class="nav nav-tabs" data-field="order_status">
+            <li class="<?php echo \think\Request::instance()->get('order_status') === null ? 'active' : ''; ?>"><a href="#t-all" data-value="" data-toggle="tab"><?php echo __('All'); ?></a></li>
+            <?php if(is_array($orderStatusList) || $orderStatusList instanceof \think\Collection || $orderStatusList instanceof \think\Paginator): if( count($orderStatusList)==0 ) : echo "" ;else: foreach($orderStatusList as $key=>$vo): ?>
+            <li class="<?php echo \think\Request::instance()->get('order_status') === (string)$key ? 'active' : ''; ?>"><a href="#t-<?php echo $key; ?>" data-value="<?php echo $key; ?>" data-toggle="tab"><?php echo $vo; ?></a></li>
             <?php endforeach; endif; else: echo "" ;endif; ?>
         </ul>
     </div>
+
 
     <div class="panel-body">
         <div id="myTabContent" class="tab-content">
@@ -77,7 +79,7 @@
                     <div id="toolbar" class="toolbar">
                         <a href="javascript:;" class="btn btn-primary btn-refresh" title="<?php echo __('Refresh'); ?>" ><i class="fa fa-refresh"></i> </a>
                         <a href="javascript:;" class="btn btn-success btn-add <?php echo $auth->check('sale/dispatch/add')?'':'hide'; ?>" title="<?php echo __('Add'); ?>" ><i class="fa fa-plus"></i> <?php echo __('Add'); ?></a>
-                        <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled <?php echo $auth->check('sale/dispatch/edit')?'':'hide'; ?>" title="<?php echo __('Dispatch'); ?>" ><i class="fa fa-pencil"></i> <?php echo __('Dispatch'); ?></a>
+                        <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled <?php echo $auth->check('sale/dispatch/edit')?'':'hide'; ?>" title="<?php echo __('Edit'); ?>" ><i class="fa fa-pencil"></i> <?php echo __('Edit'); ?></a>
                         <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled <?php echo $auth->check('sale/dispatch/del')?'':'hide'; ?>" title="<?php echo __('Delete'); ?>" ><i class="fa fa-trash"></i> <?php echo __('Delete'); ?></a>
                         <a href="javascript:;" class="btn btn-danger btn-import <?php echo $auth->check('sale/dispatch/import')?'':'hide'; ?>" title="<?php echo __('Import'); ?>" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false"><i class="fa fa-upload"></i> <?php echo __('Import'); ?></a>
 

@@ -27,6 +27,7 @@ class Order extends Backend
     protected $dataLimitField = 'company_id';
     protected $searchFields = 'order_user_name,order_user_address,order_user_tel';
 
+
     public function _initialize()
     {
         parent::_initialize();
@@ -54,6 +55,7 @@ class Order extends Backend
     	  $production = new base\Production();
     	  $product = new product\Info();
     	  $log = new product\Log();
+    	  
         if ($this->request->isPost()) {
             $params = $this->request->post("row/a");
             if ($params) {
@@ -62,6 +64,7 @@ class Order extends Backend
                 if ($this->dataLimit && $this->dataLimitFieldAutoFill) {
                     $params[$this->dataLimitField] = $this->auth->company_id;
                 }
+                
                 //生成单号
                 $main = $this->model
                 ->where('order_datetime','between time',[date('Y-m-d 00:00:01'),date('Y-m-d 23:59:59')])
@@ -80,6 +83,7 @@ class Order extends Backend
         	       $params['order_payamount'] = $params['order_amount_total'];//支付金额
                 $params['order_datetime'] = time();
                 if($params['order_engineer']!=='') {//如果开单时指定工程师，则同步派单
+                	$params['order_dispatcher'] = $this->auth->nickname;
                 	$params['order_status'] = 1;
                 } else { //开单时未指定工程师，则暂不派单
                 	$params['order_status'] = 0; 	
@@ -88,13 +92,20 @@ class Order extends Backend
                 
                 //转存明细表
                 $detail_info = [];//用于存放明细表数据
+                //$product_info = [];
                 $log_info = []; //用于存放日志数据
+                
                 $detailtemp_info = $detailtemp
                 		->where(['detail_main_id'=>1,'detail_operator'=>$this->auth->nickname,'company_id'=>$this->auth->company_id])
                 		->order('detail_id asc')
                 		->select();
-                
-                
+                $product_info_id = $product->order('product_ID','desc')->limit(1)->select();
+                if(count($product_info_id)>0) {
+                	$product_id = $product_info_id[0]['product_id'];
+                }else {
+                	$product_id = 0;
+                }
+                //上面确实product_id的方法不完美，当数据被清空时，首次获
                 $result = false;
                 Db::startTrans();
                 try {
@@ -107,7 +118,9 @@ class Order extends Backend
                     $result = $this->model->allowField(true)->save($params);
                     $order_id = $this->model->order_id;  //获得保存主表后生成的main_id
                     $count = 0;
-                    foreach ($detailtemp_info as $k => $v) {
+                    
+                
+                   foreach ( $detailtemp_info as $k => $v) {
                     $production_info = $production
                 		->where(['production_id'=>$v['detail_product_id']])
                 		->find();
@@ -135,6 +148,9 @@ class Order extends Backend
                     		->setDec('production_stock_number',$v['detail_number']);
                     //是否建档
                     if($v['detail_isrecord']) {
+                    	//如查同一规格产品同时销售多台，则需循环多次建档
+                    	 for ($i = 0;$i<$v['detail_number'];$i+=1){
+                    	 
                     		$temp_p = [];//存放建档资料
                     		$temp_l = [];//存放日志资料
                 			$temp_p['product_name'] = $v['detail_product_name'];
@@ -148,6 +164,9 @@ class Order extends Backend
                 			$temp_p['product_tel'] = $params['order_user_tel'];
                 			$temp_p['product_address'] = $params['order_user_address'];
                 			$temp_p['product_sale_type'] = $params['order_sale_type'];
+                			$temp_p['product_saleman'] = $params['order_saleman'];
+                			$temp_p['product_order_code'] = $params['order_code'];
+                			$temp_p['product_order_id'] =$order_id;
                 			$temp_p['company_id'] =$this->auth->company_id;
                 			//如查工程师字段有值，派工
                     		if($params['order_engineer']!=='') {
@@ -155,6 +174,7 @@ class Order extends Backend
                     			$temp_l['log_operator'] = $params['order_engineer'];
         	       				$temp_l['log_status'] = 1;//派工
         	       				$temp_l['log_dispatcher'] = $this->auth->nickname;//派单人
+        	       				$temp_l['log_saleman'] = $params['order_saleman'];//销售员
         	       				$temp_l['log_log'] = date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'销售出库，并预约'.datetime($params['order_service_datetime']).'安排'.$params['order_engineer'].'安装；';
         	       			   $temp_l['log_date'] =  $params['order_service_datetime'];//用预约时间作为服务时间       			
                     		} else {
@@ -170,20 +190,23 @@ class Order extends Backend
         	       			$temp_l['log_address'] = $params['order_user_address'];
         	       			$temp_l['log_tel'] = $params['order_user_tel'];
         	       			$temp_l['log_user_id'] = $params['order_user_id'];
-        	       			$temp_l['company_id'] = $this->auth->company_id;
-                    		
-                    		
-                    		$product_result = $product->allowField(true)->save($temp_p);
-                    		$temp_l['product_id'] = $product->product_id;
-                    		
+        	       			$temp_l['company_id'] = $this->auth->company_id;    
+        	       			
+                    		$temp_l['log_code'] = $params['order_code'];
+                    		$product_id += 1 ;
+                    		$temp_l['product_id'] = $product_id;
+                    		$product_info[] = $temp_p;
+                        $log_info[] =$temp_l;
+                      }
                     }
                     $detail_info[] = $temp; 
-                    $log_info[] =$temp_l;
                     //删除临时明细数据
                     $count += $v->delete();
                 }
                   
                   $iostock_result = $iostock->allowField(true)->saveAll($detail_info);
+                  // 建档立卡              		
+                  $product_result = $product->allowField(true)->saveAll($product_info);
                   $log_result = $log->allowField(true)->saveAll($log_info);
                     Db::commit();
                 } catch (ValidateException $e) {
@@ -216,6 +239,8 @@ class Order extends Backend
         if (!$row) {
             $this->error(__('No Results were found'));
         }
+        $info = new product\Info();
+        $log = new product\Log();
         $adminIds = $this->getDataLimitAdminIds();
         if (is_array($adminIds)) {
             if (!in_array($row[$this->dataLimitField], $adminIds)) {
@@ -236,6 +261,14 @@ class Order extends Backend
                         $row->validateFailException(true)->validate($validate);
                     }
                     $result = $row->allowField(true)->save($params);
+                    $order_id=$row->order_id;
+                    $info_result = $info 
+                    		->where(['product_order_code'=>$params['order_code'],'company_id'=>$this->auth->company_id])
+                    		->update(['product_user_id'=>$params['order_user_id'],'product_user_name'=>$params['order_user_name'],'product_tel'=>$params['order_user_tel'],'product_address'=>$params['order_user_address'],'product_saleman'=>$params['order_saleman']]);
+                	  $log_result = $log 
+                    		->where(['log_code'=>$params['order_code'],'company_id'=>$this->auth->company_id])
+                    		->update(['log_user_id'=>$params['order_user_id'],'log_user_name'=>$params['order_user_name'],'log_tel'=>$params['order_user_tel'],'log_address'=>$params['order_user_address'],'log_saleman'=>$params['order_saleman']]);
+                	 
                 	  Db::commit();      	 
                 } catch (ValidateException $e) {
                     Db::rollback();
@@ -248,7 +281,8 @@ class Order extends Backend
                     $this->error($e->getMessage());
                 }
                 if ($result !== false) {
-                    $this->success('OK',null,null);
+                	 $this->success(null,null,$order_id);
+                   //$this->success('OK',null,null);
                 } else {
                     $this->error(__('No rows were updated'));
                 }
@@ -291,11 +325,9 @@ class Order extends Backend
     	  $order_info['company_remark'] =$company_info['company_remark'];
     	  $info = []; 
     	  //加入合计的信息
-    	  $total = [];
-    	  $total['iostock_product_name'] ='- ';
-    	  $iostock_info[] =$total;
-    	  $total = [];
+    	  
     	  $total['iostock_product_name'] ='合计';
+    	  $total['iostock_product_type'] = '支付：'.$order_info['order_paymentmode'];
     	  $total['iostock_outnumber'] =$order_info['order_number_total'];
     	  $total['iostock_amount'] =$order_info['order_amount_total'];
     	  $total['iostock_remark'] ='备 注：'.$order_info['order_remark'];
@@ -307,6 +339,101 @@ class Order extends Backend
     	 }
         
         return json($result);
+    }
+    
+    /**
+     * 销售退货
+     */
+    public function del($ids = "")
+    {
+    	  $production = new base\Production();
+    	  $iostock = new stock\Iostock();
+    	  $info = new product\Info();
+    	  $log = new product\Log();
+    	  
+        if (!$this->request->isPost()) {
+            $this->error(__("Invalid parameters"));
+        }
+        $ids = $ids ? $ids : $this->request->post("ids");
+        if ($ids) {
+            $pk = $this->model->getPk();
+            $adminIds = $this->getDataLimitAdminIds();
+            if (is_array($adminIds)) {
+                $this->model->where($this->dataLimitField, 'in', $adminIds);
+            }
+            $list = $this->model->where($pk, 'in', $ids)->select();
+
+            $count = 0;
+            Db::startTrans();
+            try {
+                foreach ($list as $k => $v) {
+                	if($v['order_status']==4) {
+                		Db::rollback();
+                  	$this->error(__('不可以重复退货'));
+                  }
+                	//1、退库存(先查出单据包含哪些明细，再逐条遍历)
+                	$iostock_info = $iostock
+                			->where(['iostock_main_id'=>$v['order_id']])
+                			->select();
+                	foreach($iostock_info as $x => $y){
+                		$production_info = $production
+                				->where(['production_id'=>$y['iostock_product_id']])
+                				->find();
+                		//添加退货记录
+                		$iostock_row = [];
+                		$iostock_row['iostock_main_id'] = $y['iostock_main_id'];
+                		$iostock_row['iostock_code'] = $y['iostock_code'];
+                		$iostock_row['iostock_date'] = time();
+                		$iostock_row['iostock_sn'] = $y['iostock_sn'];
+                		$iostock_row['iostock_product_id'] = $y['iostock_product_id'];
+                		$iostock_row['iostock_product_name'] = $y['iostock_product_name'];
+                		$iostock_row['iostock_product_type'] = $y['iostock_product_type'];
+                		$iostock_row['iostock_unit'] = $y['iostock_unit'];
+                		$iostock_row['iostock_number'] = $y['iostock_outnumber'];
+                		$iostock_row['iostock_price'] = $y['iostock_price'];
+                		$iostock_row['iostock_amount'] = $y['iostock_amount'];
+                		$iostock_row['iostock_stock_number'] = $production_info['production_stock_number']+$y['iostock_outnumber'];
+                		$iostock_row['iostock_operator'] = $this->auth->nickname;
+                		$iostock_row['iostock_type'] = 3;//销售退货 
+                		$iostock_row['iostock_remark'] = '客户'.$v['order_user_name'].'销售退货，原销售单号：'.$v['order_code'];
+                		$iostock_row['company_id'] = $this->auth->company_id;
+                		$iostock_result = $iostock->allowField(true)->save($iostock_row);//保证退货出入库记录
+                		
+                		//退库存数量
+                		$production_result = $production
+                				->where(['production_id'=>$y['iostock_product_id']])
+                				->setInc('production_stock_number',$y['iostock_outnumber']);  //将库存加上去
+                		$info_info = $info
+                				->where(['product_order_id'=>$v['order_id']])
+                				->select();
+                		$log_result = $log
+                				->where(['product_id'=>['in',array_column($info_info,'product_id')]])
+                				->delete();//删除LOG表中所有与主条产品信息相关的记录
+                		$info_result =$info 
+                				->where(['product_order_id'=>$v['order_id']])
+                				->delete();//删除档案主表
+                	}
+                	$order_result = $this->model
+                			->where(['order_id'=>$v['order_id']])
+                			->update(['order_status'=>4]);//将销售单主表状态设置为作废
+                	
+                    //$count += $v->delete();
+                }
+                Db::commit();
+            } catch (PDOException $e) {
+                Db::rollback();
+                $this->error($e->getMessage());
+            } catch (Exception $e) {
+                Db::rollback();
+                $this->error($e->getMessage());
+            }
+            if ($order_result) {
+                $this->success();
+            } else {
+                $this->error(__('No rows were deleted'));
+            }
+        }
+        $this->error(__('Parameter %s can not be empty', 'ids'));
     }
 
 

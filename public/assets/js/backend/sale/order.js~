@@ -39,7 +39,7 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
                         {field: 'order_payamount', title: __('Order_payamount'), operate:'BETWEEN'},
                         {field: 'order_paymentmode', title: __('Order_paymentmode'), operate: 'LIKE'},
                         {field: 'order_dispatcher', title: __('Order_dispatcher'), operate: 'LIKE'},
-                        {field: 'order_status', title: __('Order_status'), searchList: {"0":__('Order_status 0'),"1":__('Order_status 1'),"2":__('Order_status 2')}, formatter: Table.api.formatter.status},
+                        {field: 'order_status', title: __('Order_status'), searchList: {"0":__('Order_status 0'),"1":__('Order_status 1'),"2":__('Order_status 2'),"3":__('Order_status 3')}, formatter: Table.api.formatter.status},
                         {field: 'order_remark', title: __('Order_remark')},
                         {field: 'order_operator', title: __('Order_operator'), operate: 'LIKE'},
                         {field: 'order_saleman', title: __('Order_saleman'), operate: 'LIKE'},
@@ -181,7 +181,70 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
 	         });
 	         //保存
        		$(document).on("click",".btn-verify",function () {
+       		  if ($("#c-order_id").val()=='') {
        			$("#add-form").attr("action","sale/order/add").submit(); 
+       		} else{
+       			alert('请新建单据，重新填写后再执行保存操作！');
+       		}
+       		});
+       		//新建 
+       		$(document).on("click",".btn-new",function () {
+       			//先清空主表数据
+       		  $("#c-order_user_id").val('');
+       		  $("#c-order_user_id").selectPageClear();
+       		  $("#c-order_user_name").val('');
+       		  $("#c-order_id").val(''); 
+       		  $("#c-order_user_tel").val('');
+       		  $("#c-order_user_address").val('');
+       		  $("#c-order_saleman").val('');
+       		  $("#c-order_saleman").selectPageClear();
+       		  $("#c-order_engineer").val('');
+       		  $("#c-order_engineer").selectPageClear();
+       		  $("#c-order_service_datetime").val('');
+       		  $("#c-order_number_total").val('');
+       		  $("#c-order_amount_total").val('');
+       		  $("#c-order_sale_type").val('');
+       		  $("#c-order_sale_type").selectPageClear();
+       		  $("#c-order_remark").val('');
+       		  //清空明细数据表并刷新表格
+       	 			Fast.api.ajax({
+        					url:'sale/detailtemp/cleardetail',        													     
+         	   	}, 
+         	 			function (data,ret) { //success 用于接收主表控制器发过来的数据
+         	 				$("#table").bootstrapTable('refresh');
+         					console.info(data);     													      
+               			return false;    															
+           				},function(data){
+           				$("#table").bootstrapTable('refresh');
+               		//失败的回调 
+           				return false;	
+              			}											  		 		  
+ 			   		);
+
+       		});
+       		//打印
+       		$(document).on("click",".btn-printing",function () {
+       			if ($("#c-order_id").val()!=='') {
+       			//打印单据
+						$.ajax({
+                        url: "sale/order/print",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {order_id:$("#c-order_id").val()},
+                        success: function (ret) {
+                            var options ={
+                                templateCode:'XSD',
+                                data:ret.data,
+                                list:ret.list
+                            };
+                            Printing.api.printTemplate(options);
+                        }, error: function (e) {
+                            Backend.api.toastr.error(e.message);
+                        }
+                    });
+                 } else {
+                 	alert('请先保存单据再执行打印！');
+                 }
        		});
         },
         edit: function () {
@@ -197,6 +260,7 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
                             var options ={
                                 templateCode:'XSD',
                                 data:ret.data,
+                                list:ret.list
                             };
                             Printing.api.printTemplate(options);
                         }, error: function (e) {

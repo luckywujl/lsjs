@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:108:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/public/../application/admin/view/sale/order/edit.html";i:1627636943;s:97:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:94:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:96:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:108:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/public/../application/admin/view/sale/order/edit.html";i:1627827487;s:97:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:94:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:96:"/media/luckywujl/data/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -66,18 +66,19 @@
         <div class="col-xs-12 col-sm-2" >
             <input id="c-order_code" data-rule="required" readonly="readonly" class="form-control" name="row[order_code]" type="text" value="<?php echo htmlentities($row['order_code']); ?>">
         </div>
-        <div class="col-xs-12 col-sm-2" >
+        <div class="col-xs-12 col-sm-2"  hidden="hidden">
+            <input id="c-order_user_name" data-rule="required" class="form-control" name="row[order_user_name]" type="text" value="<?php echo htmlentities($row['order_user_name']); ?>">
             <input id="c-order_id" data-rule="required" readonly="readonly" class="form-control" name="row[order_id]" type="text" value="<?php echo htmlentities($row['order_id']); ?>">
         </div>
     
-        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_datetime'); ?>:</label>
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_service_datetime'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_datetime" data-rule="required"readonly="readonly" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[order_datetime]" type="text" value="<?php echo $row['order_datetime']?datetime($row['order_datetime']):''; ?>">
+            <input id="c-order_service_datetime"  class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[order_service_datetime]" type="text" value="<?php echo $row['order_service_datetime']?datetime($row['order_service_datetime']):''; ?>">
         </div>
         
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_sale_type'); ?>:</label>
         <div class="col-xs-12 col-sm-2" >
-            <input id="c-order_sale_type" data-rule="required" readonly="readonly" class="form-control" name="row[order_sale_type]" type="text" value="<?php echo htmlentities($row['order_sale_type']); ?>">
+            <input id="c-order_sale_type"  readonly="readonly" class="form-control" name="row[order_sale_type]" type="text" value="<?php echo htmlentities($row['order_sale_type']); ?>">
         </div>
    
         
@@ -85,8 +86,10 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Order_user_name'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_user_name" data-rule="required" class="form-control" name="row[order_user_name]" type="text" value="<?php echo htmlentities($row['order_user_name']); ?>">
+            <input id="c-order_user_id" data-rule="required" class="form-control selectpage" data-source="user/user/index" data-field="name" data-primary-key="id" name="row[order_user_id]" type="text" value="<?php echo htmlentities($row['order_user_id']); ?>">
         </div>
+       
+            
     
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_user_tel'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
@@ -101,12 +104,12 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Order_number_total'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_number_total" class="form-control" name="row[order_number_total]" type="number" value="<?php echo htmlentities($row['order_number_total']); ?>">
+            <input id="c-order_number_total" class="form-control" readonly="readonly"  name="row[order_number_total]" type="number" value="<?php echo htmlentities($row['order_number_total']); ?>">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_amount_total'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_amount_total" class="form-control" name="row[order_amount_total]" type="number" value="<?php echo htmlentities($row['order_amount_total']); ?>">
+            <input id="c-order_amount_total" class="form-control" readonly="readonly"  name="row[order_amount_total]" type="number" value="<?php echo htmlentities($row['order_amount_total']); ?>">
         </div>
    
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_paymentmode'); ?>:</label>
@@ -117,17 +120,17 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Order_dispatcher'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_dispatcher" class="form-control" name="row[order_dispatcher]" type="text" value="<?php echo htmlentities($row['order_dispatcher']); ?>">
+            <input id="c-order_dispatcher" class="form-control" readonly="readonly" name="row[order_dispatcher]" type="text" value="<?php echo htmlentities($row['order_dispatcher']); ?>">
         </div>
         
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_saleman'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_saleman" class="form-control" name="row[order_saleman]" type="text" value="<?php echo htmlentities($row['order_saleman']); ?>">
+            <input id="c-order_saleman" class="form-control selectpage" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname" name="row[order_saleman]" type="text" value="<?php echo htmlentities($row['order_saleman']); ?>">
         </div>
         
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_engineer'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_engineer" class="form-control" name="row[order_engineer]" type="text" value="<?php echo htmlentities($row['order_engineer']); ?>">
+            <input id="c-order_engineer" readonly="readonly" class="form-control selectpage" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname" name="row[order_engineer]" type="text" value="<?php echo htmlentities($row['order_engineer']); ?>">
         </div>
     </div>
     <div class="form-group">
@@ -135,14 +138,14 @@
         
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Order_operator'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_operator" class="form-control" name="row[order_operator]" type="text" value="<?php echo htmlentities($row['order_operator']); ?>">
+            <input id="c-order_operator" readonly="readonly" class="form-control" name="row[order_operator]" type="text" value="<?php echo htmlentities($row['order_operator']); ?>">
         </div>
    
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_remark'); ?>:</label>
         <div class="col-xs-12 col-sm-4">
             <textarea id="c-order_remark" class="form-control " rows="1" name="row[order_remark]" cols="50"><?php echo htmlentities($row['order_remark']); ?></textarea>
         </div>
-        <button type="button" class="btn btn-info btn-printing  btn-embossed"><?php echo __('打印'); ?></button>
+        <button type="button" class="btn btn-info   btn-embossed btn-printing"><?php echo __('打印'); ?></button>
     </div>
     <div class="form-group">
         

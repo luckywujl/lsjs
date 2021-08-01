@@ -42,7 +42,7 @@ class Printing extends Backend
         if(!$data){
             $this->error("找不到模板");
         }
-        $result = array("code" => 1, "msg" => 'success','data'=>$data);
+        $result = array("code" => 1, "msg" => '打印完成，请取走纸张！','data'=>$data);
         return json($result);
     }
 

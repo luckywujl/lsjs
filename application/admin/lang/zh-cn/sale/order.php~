@@ -17,7 +17,9 @@ return [
     'Order_status'       => '订单状态',
     'Order_status 0'     => '开单',
     'Order_status 1'     => '已派单',
-    'Order_status 2'     => '作废',
+    'Order_status 2'     => '安装完成',
+    'Order_status 3'     => '延迟安装',
+    'Order_status 4'     => '销售退单',
     'Order_remark'       => '备注',
     'Order_operator'     => '开单人',
     'Order_saleman'      => '销售员',
@@ -54,6 +56,6 @@ return [
     'Iostock_type 0'       => '入库',
     'Iostock_type 1'       => '出库',
     'Iostock_type 2'       => '销售',
-    'Iostock_remark'       => '销售单号',
+    'Iostock_remark'       => '备注',
     'Company_id'         => '数据归属'
 ];

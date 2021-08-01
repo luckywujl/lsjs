@@ -26,6 +26,7 @@ class Mytask extends Model
     // 追加属性
     protected $append = [
         'log_date_text',
+        
         'log_status_text'
     ];
     
@@ -33,10 +34,12 @@ class Mytask extends Model
     
     public function getLogStatusList()
     {
-        return ['0' => __('Log_status 0'), '1' => __('Log_status 1'), '2' => __('Log_status 2'), '3' => __('Log_status 3'), '4' => __('Log_status 4'), '5' => __('Log_status 5')];
+        return ['1' => __('Log_status 1'), '2' => __('Log_status 2'), '3' => __('Log_status 3'), '4' => __('Log_status 4'), '5' => __('Log_status 5')];
     }
 
 
+    
+    
     public function getLogDateTextAttr($value, $data)
     {
         $value = $value ? $value : (isset($data['log_date']) ? $data['log_date'] : '');
@@ -55,6 +58,8 @@ class Mytask extends Model
     {
         return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }
+    
+   
 
 
 }

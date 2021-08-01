@@ -20,6 +20,7 @@ return [
     'Iostock_type 0'       => '入库',
     'Iostock_type 1'       => '出库',
     'Iostock_type 2'       => '销售',
+    'Iostock_type 3'       => '销售退货',
     'Iostock_remark'       => '销售单号',
     'Company_id'           => '数据归属'
 ];

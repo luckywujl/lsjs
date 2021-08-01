@@ -1,0 +1,139 @@
+
+<form id="logedit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+	 
+	  <div class="form-group">
+       
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_code" readonly="readonly" class="form-control" name="row[log_code]" type="text" value="{$row.log_code|htmlentities}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_type" class="form-control" readonly="readonly" name="row[log_type]" type="text" value="{$row.log_type|htmlentities}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_date" class="form-control datetimepicker" readonly="readonly" data-rule="required" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[log_date]" type="text" value="{:$row.log_date?datetime($row.log_date):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_water_gage')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_water_gage" class="form-control"  name="row[log_water_gage]" type="text" value="{$row.log_water_gage|htmlentities}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_address')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_address" class="form-control" name="row[log_address]" type="text" value="{$row.log_address|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_tel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_tel" class="form-control" name="row[log_tel]" type="text" value="{$row.log_tel|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group" hidden="hidden">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_log')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_log" class="form-control" name="row[log_log]" type="text" value="{$row.log_log|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_code" class="form-control" name="product[product_code]" data-rule="required" type="text" value="{$product.product_code|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_install_place')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_install_place" class="form-control selectpage" data-rule="required" data-source="base/installplace/index" data-field="install_place" data-primary-key="install_place" name="product[product_install_place]" type="text" value="{$product.product_install_place|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_install_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_install_type" class="form-control selectpage" data-rule="required" data-source="base/installtype/index" data-field="install_type" data-primary-key="install_type" name="product[product_install_type]" type="text" value="{$product.product_install_type|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_purpose')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_purpose" class="form-control selectpage" data-rule="required" data-source="base/purpose/index" data-field="purpose" data-primary-key="purpose" name="product[product_purpose]" type="text" value="{$product.product_purpose|htmlentities}">
+        </div>
+    </div>
+  
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_consumable_material')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_consumable_material" readonly="readonly" data-rule="required" class="form-control" name="product[product_consumable_material]" type="text" value="{$product.product_consumable_material|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_replacement_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_replacement_date" class="form-control datetimepicker"  data-rule="required" data-date-format="YYYY-MM-DD" data-use-current="true" name="product[product_replacement_date]" type="text" value="{:$product.product_replacement_date?datetime($product.product_replacement_date):''}">
+        </div>
+    </div>
+    
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_pic')}:</label>
+        <div class="col-xs-12 col-sm-8"  >
+            <div class="input-group">
+                <input id="c-log_pic" readonly="readonly" class="form-control" size="50" name="row[log_pic]" type="text" value="{$row.log_pic|default=''}">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button"  id="faupload-question_files" class="btn btn-danger plupload" data-input-id="c-log_pic" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" capture="camera" data-multiple="true" data-preview-id="p-log_pic"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+  
+                </div>
+                <span class="msg-box n-right" for="c-log_pic"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-log_pic"></ul>
+        </div>
+    </div>
+    
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_dispatcher')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_dispatcher" readonly="readonly" class="form-control" name="row[log_dispatcher]" type="text" value="{$row.log_dispatcher|htmlentities}">
+        </div>
+    </div>
+    
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[log_status]', [1=>__('Log_status 1'),2=>__('Log_status 2'), 3=>__('Log_status 3'), 4=>__('Log_status 4')], $row.log_status)}
+            
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_remark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+        		<textarea id="c-log_remark" class="form-control " rows="5" name="row[log_remark]" cols="50">{$row.log_remark|htmlentities}</textarea>
+        </div>
+    </div>
+    
+    
+    
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

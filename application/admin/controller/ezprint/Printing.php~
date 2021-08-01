@@ -17,6 +17,7 @@ class Printing extends Backend
      * @var \app\admin\model\Printing\Printing
      */
     protected $model = null;
+    protected $noNeedRight = ['get'];
 
     public function _initialize()
     {
@@ -41,7 +42,7 @@ class Printing extends Backend
         if(!$data){
             $this->error("找不到模板");
         }
-        $result = array("code" => 1, "msg" => 'success','data'=>$data);
+        $result = array("code" => 1, "msg" => '打印完成，请取走纸张！','data'=>$data);
         return json($result);
     }
 

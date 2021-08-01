@@ -40,7 +40,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'iostock_amount', title: __('Iostock_amount'), operate:'BETWEEN'},
                         {field: 'iostock_stock_number', title: __('Iostock_stock_number')},
                         {field: 'iostock_operator', title: __('Iostock_operator'), operate: 'LIKE'},
-                        {field: 'iostock_type', title: __('Iostock_type'), searchList: {"0":__('Iostock_type 0'),"1":__('Iostock_type 1'),"2":__('Iostock_type 2')}, formatter: Table.api.formatter.normal},
+                        {field: 'iostock_type', title: __('Iostock_type'), searchList: {"0":__('Iostock_type 0'),"1":__('Iostock_type 1'),"2":__('Iostock_type 2'),"3":__('Iostock_type 3')}, formatter: Table.api.formatter.normal},
                         {field: 'iostock_remark', title: __('Iostock_remark')},
                         {field: 'company_id', title: __('Company_id'), operate: 'LIKE'},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
