@@ -2,6 +2,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
     var Controller = {
         index: function () {
+          
+         	$(".btn-edit").data("area",["90%","90%"]);
             // 初始化表格参数配置
             Table.api.init({
                 extend: {
@@ -25,7 +27,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'log_code', title: __('Log_code'), operate: 'LIKE'},
                         //{field: 'product_id', title: __('Product_id')},
                         {field: 'log_type', title: __('Log_type'), operate: 'LIKE'},
-                        {field: 'log_date', title: __('Log_date')},
+                        {field: 'log_saleman', title: __('Log_saleman'), operate: 'LIKE'},
+                        {field: 'log_date', title: __('Log_date'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
                         {field: 'tasknumber', title: __('Tasknumber'), operate: 'LIKE'},
                         //{field: 'log_remark', title: __('Log_remark'), operate: 'LIKE'},
                         {field: 'log_user_name', title: __('Log_user_name'), operate: 'LIKE'},
@@ -58,6 +61,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Controller.api.bindevent();
         },
         edit: function () {
+        	
+         	$(".btn-edit").data("area",["90%","90%"]);
         	// 初始化表格参数配置
             Table.api.init({
                 extend: {
@@ -82,6 +87,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {checkbox: true},
                         {field: 'log_id', title: __('Log_id'),visible:false},
                         {field: 'log_address', title: __('Log_address'), operate: 'LIKE'},
+                        {field: 'productinfo.product_name', title: __('Productinfo.product_name'), operate: 'LIKE'},
+                        {field: 'productinfo.product_type', title: __('Productinfo.product_type'), operate: 'LIKE'},
+                        
                         //{field: 'log_code', title: __('Log_code'), operate: 'LIKE'},
                         //{field: 'product_id', title: __('Product_id')},
                         //{field: 'log_type', title: __('Log_type'), operate: 'LIKE'},

@@ -6,6 +6,7 @@ use app\common\controller\Backend;
 use think\Db;
 use app\admin\model\product as product;
 use app\admin\model\base as base;
+use app\admin\model\sale as sale;
 
 /**
  * 服务日志
@@ -61,10 +62,10 @@ class Callback extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
 
             $list = $this->model
-            	 ->field('log_code,log_type,log_date,log_user_name,log_tel,log_address,log_operator,log_status,count(*) as tasknumber')
+            	 ->field('log_code,log_type,log_date,log_saleman,log_user_name,log_tel,log_address,log_operator,log_status,count(*) as tasknumber')
                 ->where($where)
                 ->where(['log_saleman'=>$this->auth->nickname,'log_status'=>['in',[2,3,4,5]]])  //只求是我销售的和未结单的
-                ->group('log_code,log_type,log_date,log_user_name,log_tel,log_address,log_operator,log_status')
+                ->group('log_code,log_type,log_date,log_saleman,log_user_name,log_tel,log_address,log_operator,log_status')
                 ->order($sort, $order)
                 ->paginate($limit);
 
@@ -84,11 +85,12 @@ class Callback extends Backend
     {
         $info = new product\Info();
         $log = new product\Log();
+        $order = new sale\Order();
         $log_status = $this->request->param('log_status');
         $list = $this->model
-            	 ->field('log_code,log_type,log_date,log_user_name,log_tel,log_address,log_operator,log_status,company_id,count(*) as tasknumber')
+            	 ->field('log_code,log_type,log_date,log_saleman,log_user_name,log_tel,log_address,log_operator,log_status,company_id,count(*) as tasknumber')
                 ->where(['log_saleman'=>$this->auth->nickname,'log_code'=>$ids,'log_status'=>$log_status,'company_id'=>$this->auth->company_id])  //只求我的和未结单的
-                ->group('log_code,log_type,log_date,log_user_name,log_tel,log_address,log_operator,log_status,company_id')
+                ->group('log_code,log_type,log_date,log_saleman,log_user_name,log_tel,log_address,log_operator,log_status,company_id')
                 ->select();
         $row = $list[0];
        // $row = $this->model->where(['log_code'=>$ids])->find();
@@ -121,6 +123,9 @@ class Callback extends Backend
                     $info_result = $info
                     		->where(['product_order_code'=>$ids,'product_saleman'=>$this->auth->nickname,'product_status'=>3,'company_id'=>$this->auth->company_id])
                     		->update(['product_status'=>4]);//改为在用
+                    $order_result = $order
+                    		->where(['order_code'=>$ids,'order_saleman'=>$this->auth->nickname,'company_id'=>$this->auth->company_id])
+                    		->update(['order_status'=>2]); //订单状态改为安装完成，结单
                     $log_result_1 = $log
                     		->where(['log_code'=>$ids,'log_saleman'=>$this->auth->nickname,'log_status'=>2,'company_id'=>$this->auth->company_id])
                     		->exp('log_log','concat(log_log,"'.date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'完成销售回访;'.'")')
@@ -158,6 +163,8 @@ class Callback extends Backend
      */
     public function logdetail()
     {
+    	 //当前是否为关联查询
+        $this->relationSearch = true;
         //设置过滤方法
         $log_code = $this->request->param(); 
         $this->request->filter(['strip_tags', 'trim']);
@@ -169,6 +176,7 @@ class Callback extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
 
             $list = $this->model
+                 ->with(['productinfo'])
                 ->where($where)
                 ->where(['log_code'=>$log_code['log_code'],'log_saleman'=>$this->auth->nickname,'log_status'=>$log_code['log_status']])
                 ->order($sort, $order)

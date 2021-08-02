@@ -138,6 +138,7 @@ class Order extends Backend
                     $temp['iostock_amount'] =$v['detail_amount'];
                     $temp['iostock_stock_number'] =$production_info['production_stock_number']-$v['detail_number'];  //实时库存
                     $temp['iostock_operator'] =$v['detail_operator'];
+                    $temp['iostock_person'] =$params['order_saleman'];//出入库经办人
                     $temp['iostock_type'] = 2;  //销售
                 	  $temp['iostock_remark']  = $v['detail_remark'];
                     $temp['company_id'] =$this->auth->company_id;
@@ -174,16 +175,16 @@ class Order extends Backend
                     			$temp_l['log_operator'] = $params['order_engineer'];
         	       				$temp_l['log_status'] = 1;//派工
         	       				$temp_l['log_dispatcher'] = $this->auth->nickname;//派单人
-        	       				$temp_l['log_saleman'] = $params['order_saleman'];//销售员
+        	       				
         	       				$temp_l['log_log'] = date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'销售出库，并预约'.datetime($params['order_service_datetime']).'安排'.$params['order_engineer'].'安装；';
         	       			   $temp_l['log_date'] =  $params['order_service_datetime'];//用预约时间作为服务时间       			
                     		} else {
                     			$temp_p['product_status'] = 1 ;//销售未派单	
                     			$temp_l['log_status'] = 0;//建单
         	         			$temp_l['log_log'] = date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'销售出库；';
-        	         			$temp_l['log_date'] =  $params['order_datetime'];//用销售时间作为服务时间 
+        	         			//$temp_l['log_date'] =  $params['order_datetime'];//用销售时间作为服务时间 
                     		}	
-                    		
+                    		$temp_l['log_saleman'] = $params['order_saleman'];//销售员
                     		$temp_l['log_type'] = '新机销售';
         	       			$temp_l['log_remark'] = $v['detail_remark'];
         	       			$temp_l['log_user_name'] = $params['order_user_name'];
@@ -322,7 +323,9 @@ class Order extends Backend
     	  $order_info['company_tel'] = $company_info['company_tel'];
     	  $order_info['company_address'] = $company_info['company_address'];
     	  $order_info['company_websit'] = $company_info['company_websit'];
-    	  $order_info['company_remark'] =$company_info['company_remark'];
+    	  if($order_info['order_remark']!=='') {
+    	    $total['iostock_remark'] ='备 注：'.$order_info['order_remark'];
+    	  }
     	  $info = []; 
     	  //加入合计的信息
     	  

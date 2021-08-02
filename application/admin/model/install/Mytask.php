@@ -34,7 +34,7 @@ class Mytask extends Model
     
     public function getLogStatusList()
     {
-        return ['1' => __('Log_status 1'), '2' => __('Log_status 2'), '3' => __('Log_status 3'), '4' => __('Log_status 4'), '5' => __('Log_status 5')];
+        return ['1' => __('Log_status 1'), '2' => __('Log_status 2'), '3' => __('Log_status 3'), '4' => __('Log_status 4')];
     }
 
 
@@ -59,7 +59,10 @@ class Mytask extends Model
         return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }
     
-   
+    public function productinfo()
+    {
+        return $this->belongsTo('app\admin\model\product\Info', 'product_id', 'product_id', [], 'LEFT')->setEagerlyType(0);
+    }
 
 
 }

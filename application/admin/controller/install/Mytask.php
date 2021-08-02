@@ -57,10 +57,10 @@ class Mytask extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
 
             $list = $this->model
-            	 ->field('log_code,log_type,log_date,log_user_name,log_tel,log_address,log_operator,log_status,count(*) as tasknumber')
+            	 ->field('log_code,log_type,log_date,log_saleman,log_user_name,log_tel,log_address,log_operator,log_status,count(*) as tasknumber')
                 ->where($where)
-                ->where(['log_operator'=>$this->auth->nickname,'log_status'=>['in',[1,2,3,4,5]]])  //只求我的和未结单的
-                ->group('log_code,log_type,log_date,log_user_name,log_tel,log_address,log_operator,log_status')
+                ->where(['log_operator'=>$this->auth->nickname,'log_status'=>['in',[1,2,3,4]]])  //只求我的和未结单的
+                ->group('log_code,log_type,log_date,log_saleman,log_user_name,log_tel,log_address,log_operator,log_status')
                 ->order($sort, $order)
                 ->paginate($limit);
 
@@ -135,6 +135,8 @@ class Mytask extends Backend
      */
     public function logdetail()
     {
+    	 //当前是否为关联查询
+        $this->relationSearch = true;
         //设置过滤方法
         $log_code = $this->request->param(); 
         $this->request->filter(['strip_tags', 'trim']);
@@ -146,6 +148,7 @@ class Mytask extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
 
             $list = $this->model
+                ->with(['productinfo'])
                 ->where($where)
                 ->where(['log_code'=>$log_code['log_code'],'log_status'=>$log_code['log_status']])
                 ->order($sort, $order)
@@ -195,6 +198,9 @@ class Mytask extends Backend
                         $validate = is_bool($this->modelValidate) ? ($this->modelSceneValidate ? $name . '.edit' : $name) : $this->modelValidate;
                         $row->validateFailException(true)->validate($validate);
                     }
+                    $product['product_tel'] = $params['log_tel'];
+                    $product['product_address'] = $params['log_address'];
+                    $product['product_water_gage'] = $params['log_water_gage'];
                     $product['product_replacement_date'] =strtotime($product['product_replacement_date']);//换芯日期转为日期戳
                     $product['product_install_date'] =time();//建档表中的安装日期
                     $product['product_log_date'] = $product['product_install_date'];

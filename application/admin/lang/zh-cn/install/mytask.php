@@ -6,6 +6,7 @@ return [
     'Product_id'         => '机器ID',
     'Log_type'           => '服务类型',
     'Log_date'           => '服务日期',
+    'Log_saleman'           => '销售员',
     'Log_water_gage'     => '新水压',
     'Log_remark'         => '服务备注',
     'Log_user_name'      => '用户名称',
@@ -49,5 +50,7 @@ return [
     'Product_install_place'       => '安装位置',
     'Product_install_type'        => '安装管路',
     'Product_purpose'             => '净水用途',
+    'Productinfo.product_name'	 => '产品名称',
+    'Productinfo.product_type'	 => '产品型号',
     'Company_id'         => '数据归属'
 ];

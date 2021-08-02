@@ -62,4 +62,9 @@ class Callback extends Model
     {
         return $this->belongsTo('app\admin\model\User', 'log_user_id', 'id', [], 'LEFT')->setEagerlyType(0);
     }
+    
+    public function productinfo()
+    {
+        return $this->belongsTo('app\admin\model\product\Info', 'product_id', 'product_id', [], 'LEFT')->setEagerlyType(0);
+    }
 }
