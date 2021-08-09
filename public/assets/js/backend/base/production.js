@@ -28,9 +28,13 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         //{field: 'production_id', title: __('Production_id')},
                         {field: 'production_name', title: __('Production_name'), operate: 'LIKE'},
                         {field: 'production_type', title: __('Production_type'), operate: 'LIKE'},
+                        {field: 'production_unit', title: __('Production_unit')},
+                        {field: 'production_stock_number', title: __('Production_stock_number')},
                         {field: 'production_consumable_material', title: __('Production_consumable_material'), operate: 'LIKE'},
                         {field: 'production_replacement_cycle', title: __('Production_replacement_cycle')},
                         {field: 'production_stock_number', title: __('Production_stock_number')},
+                        {field: 'production_isrecord', title: __('Production_isrecord'), searchList: {"0":__('Production_isrecord 0'),"1":__('Production_isrecord 1')}, formatter: Table.api.formatter.status},
+                        
                         //{field: 'company_id', title: __('Company_id')},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
@@ -41,6 +45,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.bindevent(table);
         },
         add: function () {
+        		 
             Controller.api.bindevent();
         },
         edit: function () {

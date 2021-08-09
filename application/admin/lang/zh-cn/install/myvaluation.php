@@ -14,7 +14,7 @@ return [
     'Log_operator'       => '服务人员',
     'Log_pic'            => '服务照片',
     'Log_dispatcher'     => '派单人',
-    'Log_valuation'      => '服务评价',
+    'Log_valuation'      => '服务评语',
     'Log_valuation_star' => '服务评分',
     'Log_status'         => '工单状态',
     'Log_status 0'       => '建单',

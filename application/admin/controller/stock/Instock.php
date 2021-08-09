@@ -21,7 +21,7 @@ class Instock extends Backend
     protected $model = null;
     protected $dataLimit = 'personal';
     protected $dataLimitField = 'company_id';
-    protected $searchFields = 'instock_product_name,instock_product_type,instock_operator,instock_number';
+    protected $searchFields = 'iostock_product_name,iostock_product_type,iostock_operator,iostock_number';
 	
 
     public function _initialize()
@@ -57,7 +57,7 @@ class Instock extends Backend
 
             $list = $this->model
                 ->where($where)
-                ->where(['instock_type'=>0]) //入库操作
+                ->where(['iostock_type'=>0]) //入库操作
                 ->order($sort, $order)
                 ->paginate($limit);
 
@@ -82,31 +82,31 @@ class Instock extends Backend
                 }
                 //生成单号
                 $main = $this->model
-                ->where('instock_date','between time',[date('Y-m-d 00:00:01'),date('Y-m-d 23:59:59')])
-                ->where(['company_id'=>$this->auth->company_id,'instock_type'=>0]) //入库单
-            	 -> order('instock_code','desc')->limit(1)->select();
+                ->where('iostock_date','between time',[date('Y-m-d 00:00:01'),date('Y-m-d 23:59:59')])
+                ->where(['company_id'=>$this->auth->company_id,'iostock_type'=>0]) //入库单
+            	 -> order('iostock_code','desc')->limit(1)->select();
         	       if (count($main)>0) {
         	       $item = $main[0];
-        	  	    $code = '0000'.(substr($item['instock_code'],9,4)+1);
+        	  	    $code = '0000'.(substr($item['iostock_code'],10,4)+1);
         	  	    $code = substr($code,strlen($code)-4,4);
-        	      	$params['instock_code'] = 'J'.date('Ymd').$code;
+        	      	$params['iostock_code'] = 'RK'.date('Ymd').$code;
         	      	} else {
-        	  	   	$params['instock_code']='J'.date('Ymd').'0001';
+        	  	   	$params['iostock_code']='RK'.date('Ymd').'0001';
         	      	}
         	      //完成单号生成
         	       $production = new base\Production();
         	       $production_info = $production
-        	       		->where(['production_id'=>$params['instock_product_id'],'company_id'=>$this->auth->company_id])
+        	       		->where(['production_id'=>$params['iostock_product_id'],'company_id'=>$this->auth->company_id])
         	       		->find();
         	       if($production_info) {
-        	       	$params['instock_stock_number'] = $params['instock_number']+$production_info['production_stock_number'];
+        	       	$params['iostock_stock_number'] = $params['iostock_number']+$production_info['production_stock_number'];
         	       } else {
-        	       	$params['instock_stock_number'] = $params['instock_number'];
+        	       	$params['iostock_stock_number'] = $params['iostock_number'];
         	       }
-        	       $params['instock_product_type'] = $production_info['production_type'];
-                $params['instock_date']=time();
-                $params['instock_operator'] = $this->auth->nickname;
-                $params['instock_type'] = 0;
+        	       $params['iostock_product_type'] = $production_info['production_type'];
+                $params['iostock_date']=time();
+                $params['iostock_operator'] = $this->auth->nickname;
+                $params['iostock_type'] = 0;
                 
                 $result = false;
                 Db::startTrans();
@@ -118,8 +118,8 @@ class Instock extends Backend
                         $this->model->validateFailException(true)->validate($validate);
                     }
                     $production_result = $production
-        	       		->where(['production_name'=>$params['instock_product_name'],'production_type'=>$params['instock_product_type']])
-        	       		->setInc('production_stock_number',$params['instock_number']);
+        	       		->where(['production_id'=>$params['iostock_product_id'],'company_id'=>$this->auth->company_id])
+        	       		->setInc('production_stock_number',$params['iostock_number']);
                     $result = $this->model->allowField(true)->save($params);
                     Db::commit();
                 } catch (ValidateException $e) {
@@ -166,8 +166,8 @@ class Instock extends Backend
                 foreach ($list as $k => $v) {
                     $count += $v->delete();
                     $production_result = $production
-    	                				->where(['production_id'=>$v['instock_product_id']])
-    	                				->setDec('production_stock_number',$v['instock_number']); 
+    	                				->where(['production_id'=>$v['iostock_product_id']])
+    	                				->setDec('production_stock_number',$v['iostock_number']); 
                 }
                 Db::commit();
             } catch (PDOException $e) {

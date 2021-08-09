@@ -57,8 +57,4 @@ class Log extends Model
     }
 
 
-    public function productinfo()
-    {
-        return $this->belongsTo('app\admin\model\product\Info', 'product_id', 'product_id', [], 'LEFT')->setEagerlyType(0);
-    }
 }

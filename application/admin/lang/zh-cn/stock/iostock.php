@@ -4,7 +4,7 @@ return [
     'Iostock_id'           => '出入库记录ID',
     'Iostock_main_id'      => '主表ID',
     'Iostock_code'         => '出入库单号',
-    'Iostock_date'         => '入库日期',
+    'Iostock_date'         => '日期',
     'Iostock_sn'           => '序号',
     'Iostock_product_id'   => '出入库产品ID',
     'Iostock_product_name' => '产品名称',

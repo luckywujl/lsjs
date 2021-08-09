@@ -128,6 +128,7 @@ class Detailtemp extends Backend
      */
     public function edit($ids = null)
     {
+       
         $row = $this->model->get($ids);
         if (!$row) {
             $this->error(__('No Results were found'));
@@ -168,7 +169,7 @@ class Detailtemp extends Backend
                     $this->error($e->getMessage());
                 }
                 if ($result !== false) {
-                    $this->success('OK',null,null);
+                    $this->success('OK',null,$params);
                 } else {
                     $this->error(__('No rows were updated'));
                 }
@@ -176,7 +177,7 @@ class Detailtemp extends Backend
             $this->error(__('Parameter %s can not be empty', ''));
         }
         $this->view->assign("row", $row);
-        
+        $this->assignconfig("user_id", $this->request->param('user_id'));
         return $this->view->fetch();
     }
     /**

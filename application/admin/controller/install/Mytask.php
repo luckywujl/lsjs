@@ -175,8 +175,9 @@ class Mytask extends Backend
         $production_info = $production
         		->where(['production_name'=>$info_info['product_name'],'production_type'=>$info_info['product_type'],'company_id'=>$this->auth->company_id])
         		->find();
-        $info_info['product_replacement_date'] = time()+$production_info['production_replacement_cycle']*365*86400;
-        
+        if($row['log_type']!=='售后维修') {
+          $info_info['product_replacement_date'] = time()+$production_info['production_replacement_cycle']*365*86400;
+        }
         $adminIds = $this->getDataLimitAdminIds();
         if (is_array($adminIds)) {
             if (!in_array($row[$this->dataLimitField], $adminIds)) {
@@ -210,6 +211,15 @@ class Mytask extends Backend
                     	  if ($params['log_status']=='2') {
                     	  	$params['log_log'] = $params['log_log'].date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'完成安装；'; 
                     	  }
+                    }
+                    if($params['log_pic']!=='') {
+                     	if($info_info['product_pic']!=='') {
+                     		$product['product_pic'] = $info_info['product_pic'].','.$params['log_pic'];
+                     	}else {
+                     		$product['product_pic'] = $params['log_pic'];
+                     	}
+                    //	->exp('log_remark','concat(log_remark,"；'.$params['log_remark'].'")')
+                    
                     }
                     $result_p = $info_info->allowfield(true)->save($product);
                     $result = $row->allowField(true)->save($params);

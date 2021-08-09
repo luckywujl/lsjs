@@ -13,7 +13,7 @@ class Consumables extends Model
     
 
     // 表名
-    protected $name = 'product_log';
+    protected $name = 'product_info';
     
     // 自动写入时间戳字段
     protected $autoWriteTimestamp = false;
@@ -25,33 +25,111 @@ class Consumables extends Model
 
     // 追加属性
     protected $append = [
-        'log_date_text',
-        'log_status_text'
+        'product_product_date_text',
+        'product_instock_date_text',
+        'product_sale_date_text',
+        'product_install_date_text',
+        'product_log_date_text',
+        'product_next_date_text',
+        'product_replacement_date_text',
+        'product_status_text'
     ];
     
 
     
-    public function getLogStatusList()
+    public function getProductStatusList()
     {
-        return ['0' => __('Log_status 0'), '1' => __('Log_status 1'), '2' => __('Log_status 2'), '3' => __('Log_status 3'), '4' => __('Log_status 4'), '5' => __('Log_status 5')];
+        return ['4' => __('Product_status 4'), '6' => __('Product_status 6'), '7' => __('Product_status 7'), '8' => __('Product_status 8'), '9' => __('Product_status 9'), '10' => __('Product_status 10')];
     }
 
 
-    public function getLogDateTextAttr($value, $data)
+    public function getProductProductDateTextAttr($value, $data)
     {
-        $value = $value ? $value : (isset($data['log_date']) ? $data['log_date'] : '');
+        $value = $value ? $value : (isset($data['product_product_date']) ? $data['product_product_date'] : '');
         return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
     }
 
 
-    public function getLogStatusTextAttr($value, $data)
+    public function getProductInstockDateTextAttr($value, $data)
     {
-        $value = $value ? $value : (isset($data['log_status']) ? $data['log_status'] : '');
-        $list = $this->getLogStatusList();
+        $value = $value ? $value : (isset($data['product_instock_date']) ? $data['product_instock_date'] : '');
+        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
+    }
+
+
+    public function getProductSaleDateTextAttr($value, $data)
+    {
+        $value = $value ? $value : (isset($data['product_sale_date']) ? $data['product_sale_date'] : '');
+        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
+    }
+
+
+    public function getProductInstallDateTextAttr($value, $data)
+    {
+        $value = $value ? $value : (isset($data['product_install_date']) ? $data['product_install_date'] : '');
+        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
+    }
+
+
+    public function getProductLogDateTextAttr($value, $data)
+    {
+        $value = $value ? $value : (isset($data['product_log_date']) ? $data['product_log_date'] : '');
+        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
+    }
+
+
+    public function getProductNextDateTextAttr($value, $data)
+    {
+        $value = $value ? $value : (isset($data['product_next_date']) ? $data['product_next_date'] : '');
+        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
+    }
+
+
+    public function getProductReplacementDateTextAttr($value, $data)
+    {
+        $value = $value ? $value : (isset($data['product_replacement_date']) ? $data['product_replacement_date'] : '');
+        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
+    }
+
+
+    public function getProductStatusTextAttr($value, $data)
+    {
+        $value = $value ? $value : (isset($data['product_status']) ? $data['product_status'] : '');
+        $list = $this->getProductStatusList();
         return isset($list[$value]) ? $list[$value] : '';
     }
 
-    protected function setLogDateAttr($value)
+    protected function setProductProductDateAttr($value)
+    {
+        return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
+    }
+
+    protected function setProductInstockDateAttr($value)
+    {
+        return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
+    }
+
+    protected function setProductSaleDateAttr($value)
+    {
+        return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
+    }
+
+    protected function setProductInstallDateAttr($value)
+    {
+        return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
+    }
+
+    protected function setProductLogDateAttr($value)
+    {
+        return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
+    }
+
+    protected function setProductNextDateAttr($value)
+    {
+        return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
+    }
+
+    protected function setProductReplacementDateAttr($value)
     {
         return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }

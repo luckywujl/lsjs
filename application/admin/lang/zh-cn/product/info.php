@@ -20,6 +20,8 @@ return [
     'Product_tel'                 => '装机联系电话',
     'Product_address'             => '装机地址',
     'Product_sale_type'           => '销售类型',
+    'Product_order_code'          => '销售单号',
+    'Product_order_id'            => '销售单ID',
     'Product_install_place'       => '安装位置',
     'Product_install_type'        => '安装管路',
     'Product_purpose'             => '净水用途',
@@ -35,6 +37,7 @@ return [
     'Product_status 8'            => '待换滤芯',
     'Product_status 9'            => '换芯派单',
     'Product_status 10'           => '换芯完成',
+    'Product_saleman'             => '销售员',
     'Product_pic'                 => '产品图片',
     'Company_id'                  => '数据归属'
 ];

@@ -27,7 +27,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'printing'], function
                         {field: 'log_code', title: __('Log_code'), operate: 'LIKE'},
                         //{field: 'product_id', title: __('Product_id')},
                         {field: 'log_type', title: __('Log_type'), operate: 'LIKE'},
-                        {field: 'log_date', title: __('Log_date'),operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
+                        {field: 'log_date', title: __('Log_date'),operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime, datetimeFormat:"YYYY-MM-DD"},
                         {field: 'log_saleman', title: __('Log_saleman'), operate: 'LIKE'},
                         {field: 'tasknumber', title: __('Tasknumber'), operate: 'LIKE'},
                         //{field: 'log_remark', title: __('Log_remark'), operate: 'LIKE'},

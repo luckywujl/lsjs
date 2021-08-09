@@ -7,6 +7,8 @@ use think\Db;
 use app\admin\model\product as product;
 use app\admin\model\base as base;
 use app\admin\model\sale as sale;
+use app\admin\model\service as service;
+
 
 /**
  * 服务日志
@@ -84,7 +86,7 @@ class Callback extends Backend
     public function edit($ids = null)
     {
         $info = new product\Info();
-        $log = new product\Log();
+        $repair = new service\Repair();
         $order = new sale\Order();
         $log_status = $this->request->param('log_status');
         $list = $this->model
@@ -120,19 +122,27 @@ class Callback extends Backend
                   //  $result = $row->allowField(true)->save($params);
                    if($params['log_status']==5) {
                    	 if($row['log_status']!==5) {
-                    $info_result = $info
-                    		->where(['product_order_code'=>$ids,'product_saleman'=>$this->auth->nickname,'product_status'=>3,'company_id'=>$this->auth->company_id])
+                    	 	$log_result_1 = $this->model//修改日志，在原内容基础上添加内容
+                    			->where(['log_code'=>$ids,'log_saleman'=>$this->auth->nickname,'log_status'=>2,'company_id'=>$this->auth->company_id])
+                    			->exp('log_log','concat(log_log,"'.date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'完成销售回访;'.'")')
+                    			->update();
+               		}
+               		$log_info = $this->model
+               				->where(['log_code'=>$ids,'company_id'=>$this->auth->company_id])
+               				->select();
+               		$log_product_id = array_column($log_info,'product_id');
+               		$info_result = $info//将装机档案中机器状态改为在用
+                    		->where(['product_id'=>['in',$log_product_id],'company_id'=>$this->auth->company_id])
                     		->update(['product_status'=>4]);//改为在用
-                    $order_result = $order
+                     $order_result = $order//将订单状态改为结单
                     		->where(['order_code'=>$ids,'order_saleman'=>$this->auth->nickname,'company_id'=>$this->auth->company_id])
                     		->update(['order_status'=>2]); //订单状态改为安装完成，结单
-                    $log_result_1 = $log
-                    		->where(['log_code'=>$ids,'log_saleman'=>$this->auth->nickname,'log_status'=>2,'company_id'=>$this->auth->company_id])
-                    		->exp('log_log','concat(log_log,"'.date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'完成销售回访;'.'")')
-                    		->update();
-               		}
+                    	$repair_result = $repair//将维修单状态改为结单
+                    		->where(['repair_code'=>$ids,'company_id'=>$this->auth->company_id])
+                    		->update(['repair_status'=>5]); //订单状态改为安装完成，结单
            			}
-           			$log_result = $log
+           			
+           			$log_result = $this->model
                     		->where(['log_code'=>$ids,'log_saleman'=>$this->auth->nickname,'log_status'=>$row['log_status'],'company_id'=>$this->auth->company_id])
                     		->update(['log_status'=>$params['log_status'],'log_valuation'=>$params['log_valuation'],'log_valuation_star'=>$params['log_valuation_star'],'log_callback'=>$params['log_callback'],'log_callbacker'=>$this->auth->nickname]);
                     Db::commit();
@@ -198,6 +208,8 @@ class Callback extends Backend
             $this->error(__('No Results were found'));
         }
         $info = new product\Info();
+        $repair = new service\Repair();
+        $order = new sale\Order();
         //$production = new base\Production();
         $info_info = $info->get($row['product_id']);
         //$production_info = $production
@@ -234,6 +246,15 @@ class Callback extends Backend
                     }
                     $params['log_callbacker'] = $this->auth->nickname;
                     $result = $row->allowField(true)->save($params);
+                    $info_result = $info//将装机档案中机器状态改为在用
+                    		->where(['product_id'=>$row['product_id'],'company_id'=>$this->auth->company_id])
+                    		->update(['product_status'=>4]);//改为在用
+                     $order_result = $order//将订单状态改为结单
+                    		->where(['order_code'=>$row['log_code'],'company_id'=>$this->auth->company_id])
+                    		->update(['order_status'=>2]); //订单状态改为安装完成，结单
+                    	$repair_result = $repair//将维修单状态改为结单
+                    		->where(['repair_code'=>$row['log_code'],'company_id'=>$this->auth->company_id])
+                    		->update(['repair_status'=>5]); //订单状态改为安装完成，结单
                     Db::commit();
                 } catch (ValidateException $e) {
                     Db::rollback();

@@ -3,6 +3,8 @@
 namespace app\admin\controller\stock;
 
 use app\common\controller\Backend;
+use think\Db;
+use app\admin\model\stock as stock;
 
 /**
  * 产品信息
@@ -34,6 +36,45 @@ class Inventory extends Backend
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
-    
+     
+    /**
+    * 查看明细
+    */ 
+    public function detailindex() 
+    {
+    	//设置过滤方法
+        $this->request->filter(['strip_tags', 'trim']);
+        $iostock = new stock\Iostock();
+        $iostock_product_id = $this->request->param('iostock_product_id');//接收过滤条件
+        if ($this->request->isAjax()) {
+            //如果发送的来源是Selectpage，则转发到Selectpage
+            if ($this->request->request('keyField')) {
+                return $this->selectpage();
+            }
+            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+
+            $list = $iostock
+                ->where($where)
+                ->where('iostock_product_id',$iostock_product_id)
+                ->order($sort, $order)
+                ->paginate($limit);
+            $list_total = $iostock
+            	 ->field('sum(iostock_number) as iostock_number,sum(iostock_outnumber) as iostock_outnumber')
+            	 ->where($where)
+            	 ->where('iostock_product_id',$iostock_product_id)
+            	 ->select();
+            $count =[];
+            $count['iostock_product_name'] ='合计：';
+            $count['iostock_number'] =$list_total[0]['iostock_number'];
+            $count['iostock_outnumber'] =$list_total[0]['iostock_outnumber'];
+            $list[] = $count;
+
+            $result = array("total" => $list->total(), "rows" => $list->items());
+
+            return json($result);
+        }
+        $this->assignconfig('iostock_product_id',$iostock_product_id);
+        return $this->view->fetch();
+    }
 
 }

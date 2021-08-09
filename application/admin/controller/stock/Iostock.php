@@ -20,7 +20,7 @@ class Iostock extends Backend
     protected $dataLimit = 'personal';
     protected $dataLimitField = 'company_id';
     
-    protected $noNeedRight = ['orderdetail'];
+    protected $noNeedRight = ['orderdetail','index'];
 
     public function _initialize()
     {

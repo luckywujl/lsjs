@@ -21,13 +21,13 @@ class Outstock extends Backend
     protected $model = null;
     protected $dataLimit = 'personal';
     protected $dataLimitField = 'company_id';
-    protected $searchFields = 'instock_product_name,instock_product_type,instock_operator';
+    protected $searchFields = 'iostock_product_name,iostock_product_type,iostock_operator';
 
     public function _initialize()
     {
         parent::_initialize();
         $this->model = new \app\admin\model\stock\Outstock;
-        $this->view->assign("instockTypeList", $this->model->getInstockTypeList());
+        $this->view->assign("iostockTypeList", $this->model->getIostockTypeList());
     }
 
     public function import()
@@ -56,7 +56,7 @@ class Outstock extends Backend
 
             $list = $this->model
                 ->where($where)
-                ->where(['instock_type'=>1]) //出库操作
+                ->where(['iostock_type'=>1]) //出库操作
                 ->order($sort, $order)
                 ->paginate($limit);
 
@@ -81,31 +81,31 @@ class Outstock extends Backend
                 }
                 //生成单号
                 $main = $this->model
-                ->where('instock_date','between time',[date('Y-m-d 00:00:01'),date('Y-m-d 23:59:59')])
-                ->where(['company_id'=>$this->auth->company_id,'instock_type'=>1]) //出库单
-            	 -> order('instock_code','desc')->limit(1)->select();
+                ->where('iostock_date','between time',[date('Y-m-d 00:00:01'),date('Y-m-d 23:59:59')])
+                ->where(['company_id'=>$this->auth->company_id,'iostock_type'=>1]) //出库单
+            	 -> order('iostock_code','desc')->limit(1)->select();
         	       if (count($main)>0) {
         	       $item = $main[0];
-        	  	    $code = '0000'.(substr($item['instock_code'],9,4)+1);
+        	  	    $code = '0000'.(substr($item['iostock_code'],10,4)+1);
         	  	    $code = substr($code,strlen($code)-4,4);
-        	      	$params['instock_code'] = 'C'.date('Ymd').$code;
+        	      	$params['iostock_code'] = 'CK'.date('Ymd').$code;
         	      	} else {
-        	  	   	$params['instock_code']='C'.date('Ymd').'0001';
+        	  	   	$params['iostock_code']='CK'.date('Ymd').'0001';
         	      	}
         	      //完成单号生成
         	       $production = new base\Production();
         	       $production_info = $production
-        	       		->where(['production_id'=>$params['instock_product_id'],'company_id'=>$this->auth->company_id])
+        	       		->where(['production_id'=>$params['iostock_product_id'],'company_id'=>$this->auth->company_id])
         	       		->find();
         	       if($production_info) {
-        	       	$params['instock_stock_number'] = $production_info['production_stock_number']-$params['instock_outnumber'];
+        	       	$params['iostock_stock_number'] = $production_info['production_stock_number']-$params['iostock_outnumber'];
         	       } else {
-        	       	$params['instock_stock_number'] = 0-$params['instock_outnumber'];
+        	       	$params['iostock_stock_number'] = 0-$params['instock_outnumber'];
         	       }
-        	       $params['instock_product_type'] = $production_info['production_type'];
-                $params['instock_date']=time();
-                $params['instock_operator'] = $this->auth->nickname;
-                $params['instock_type'] = 1; //出库
+        	       $params['iostock_product_type'] = $production_info['production_type'];
+                $params['iostock_date']=time();
+                $params['iostock_operator'] = $this->auth->nickname;
+                $params['iostock_type'] = 1; //出库
                 
                 $result = false;
                 Db::startTrans();
@@ -117,8 +117,8 @@ class Outstock extends Backend
                         $this->model->validateFailException(true)->validate($validate);
                     }
                     $production_result = $production
-        	       		->where(['production_id'=>$params['instock_product_id'],'company_id'=>$this->auth->company_id])
-        	       		->setDec('production_stock_number',$params['instock_outnumber']);
+        	       		->where(['production_id'=>$params['iostock_product_id'],'company_id'=>$this->auth->company_id])
+        	       		->setDec('production_stock_number',$params['iostock_outnumber']);
                     $result = $this->model->allowField(true)->save($params);
                     Db::commit();
                 } catch (ValidateException $e) {
@@ -165,8 +165,8 @@ class Outstock extends Backend
                 foreach ($list as $k => $v) {
                     $count += $v->delete();
                     $production_result = $production
-    	                				->where(['production_id'=>$v['instock_product_id']])
-    	                				->setInc('production_stock_number',$v['instock_outnumber']); //把退掉的数量加到库存上
+    	                				->where(['production_id'=>$v['iostock_product_id']])
+    	                				->setInc('production_stock_number',$v['iostock_outnumber']); //把退掉的数量加到库存上
                 }
                 Db::commit();
             } catch (PDOException $e) {

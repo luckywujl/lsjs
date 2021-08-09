@@ -69,8 +69,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.bindevent(table);
             //关闭时执行
             parent.window.$(".layui-layer-iframe").find(".layui-layer-close").on('click',function () {
-                    var ids = Table.api.selectedids(table);   //获取选中的id，获取到的是个数组
-                    Fast.api.close(ids); //往父窗口回调参数 
+                    var temp = table.bootstrapTable('getSelections');   //获取选中的行，获取到的是个数组
+                    Fast.api.close(temp); //往父窗口回调参数 
                   
              });
         },

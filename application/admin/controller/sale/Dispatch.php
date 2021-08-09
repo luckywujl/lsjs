@@ -78,7 +78,7 @@ class Dispatch extends Backend
         return $this->view->fetch();
     }
     /**
-     * 销售回访
+     * 整体派单
      */
     public function edit($ids = null)
     {
@@ -191,7 +191,7 @@ class Dispatch extends Backend
         return $this->view->fetch();
     }
     /**
-     * 施工
+     * 单个派工
      */
     public function logedit($ids = null)
     {
@@ -218,7 +218,7 @@ class Dispatch extends Backend
             $product = $this->request->post("product/a");
             if ($params) {
                 $params = $this->preExcludeFields($params);
-                $product = $this->preExcludeFields($product);
+                //$product = $this->preExcludeFields($product);
                 $result = false;
                 Db::startTrans();
                 try {

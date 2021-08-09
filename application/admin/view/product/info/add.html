@@ -109,6 +109,18 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_order_code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_order_code" class="form-control" name="row[product_order_code]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_order_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_order_id" data-rule="required" data-source="product/order/index" class="form-control selectpage" name="row[product_order_id]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Product_install_place')}:</label>
         <div class="col-xs-12 col-sm-8">
             <input id="c-product_install_place" class="form-control" name="row[product_install_place]" type="text">
@@ -136,6 +148,12 @@
             {/foreach}
             </div>
 
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Product_saleman')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_saleman" class="form-control" name="row[product_saleman]" type="text">
         </div>
     </div>
     <div class="form-group">

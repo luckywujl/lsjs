@@ -26,6 +26,7 @@ class Order extends Backend
     protected $dataLimit = 'personal';
     protected $dataLimitField = 'company_id';
     protected $searchFields = 'order_user_name,order_user_address,order_user_tel';
+    protected $noNeedRight = ['detailindex','detailadd','detailedit','detaildel','cleardetail'];
 
 
     public function _initialize()
@@ -33,6 +34,7 @@ class Order extends Backend
         parent::_initialize();
         $this->model = new \app\admin\model\sale\Order;
         $this->view->assign("orderStatusList", $this->model->getOrderStatusList());
+        //$this->view->assign("detailIsrecordList", $this->model->getDetailIsrecordList());
     }
 
     public function import()
@@ -199,6 +201,39 @@ class Order extends Backend
                     		$product_info[] = $temp_p;
                         $log_info[] =$temp_l;
                       }
+                      // 建档立卡              		
+                 		 $product_result = $product->allowField(true)->saveAll($product_info);
+                 		 $log_result = $log->allowField(true)->saveAll($log_info);
+                    } else {//如果不建档
+                    		if($v['detail_isinstall']) { //如果需要安装，则建立LOG
+                    			$temp_l = [];//存放日志资料
+                    			//如查工程师字段有值，派工
+                    			if($params['order_engineer']!=='') {
+                    				//$temp_p['product_status'] = 2 ;//装机派单    
+                    				$temp_l['log_operator'] = $params['order_engineer'];
+        	       					$temp_l['log_status'] = 1;//派工
+        	       					$temp_l['log_dispatcher'] = $this->auth->nickname;//派单人
+        	       				
+        	       					$temp_l['log_log'] = date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'销售出库，并预约'.datetime($params['order_service_datetime']).'安排'.$params['order_engineer'].'安装；';
+        	       			   	$temp_l['log_date'] =  $params['order_service_datetime'];//用预约时间作为服务时间       			
+                    			} else {
+                    				//$temp_p['product_status'] = 1 ;//销售未派单	
+                    				$temp_l['log_status'] = 0;//建单
+        	         				$temp_l['log_log'] = date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'销售出库；';
+        	         				//$temp_l['log_date'] =  $params['order_datetime'];//用销售时间作为服务时间 
+                    			}	
+                    			$temp_l['log_saleman'] = $params['order_saleman'];//销售员
+                    			$temp_l['log_type'] = '新机销售';
+        	       				$temp_l['log_remark'] = $v['detail_remark'];
+        	       				$temp_l['log_user_name'] = $v['detail_user_name'];
+        	       				$temp_l['log_address'] = $v['detail_user_address'];
+        	       				$temp_l['log_tel'] = $v['detail_user_tel'];
+        	       				$temp_l['log_user_id'] = $v['detail_user_id'];
+        	       				$temp_l['company_id'] = $this->auth->company_id;    
+                    			$temp_l['log_code'] = $params['order_code'];
+                    			$temp_l['product_id'] = $v['detail_product_info_id'];
+                    			$log_result = $log->allowField(true)->save($temp_l);
+                        }
                     }
                     $detail_info[] = $temp; 
                     //删除临时明细数据
@@ -206,9 +241,7 @@ class Order extends Backend
                 }
                   
                   $iostock_result = $iostock->allowField(true)->saveAll($detail_info);
-                  // 建档立卡              		
-                  $product_result = $product->allowField(true)->saveAll($product_info);
-                  $log_result = $log->allowField(true)->saveAll($log_info);
+                  
                     Db::commit();
                 } catch (ValidateException $e) {
                     Db::rollback();
@@ -412,6 +445,9 @@ class Order extends Backend
                 		$log_result = $log
                 				->where(['product_id'=>['in',array_column($info_info,'product_id')]])
                 				->delete();//删除LOG表中所有与主条产品信息相关的记录
+                		$log_result = $log
+                				->where(['log_code'=>$v['order_code'],'company_id'=>$this->auth->company_id])
+                				->delete();//删除LOG表中所有与主条产品信息相关的记录
                 		$info_result =$info 
                 				->where(['product_order_id'=>$v['order_id']])
                 				->delete();//删除档案主表
@@ -437,6 +473,247 @@ class Order extends Backend
             }
         }
         $this->error(__('Parameter %s can not be empty', 'ids'));
+    }
+    /**
+     * 明细清单
+     */
+    public function detailindex()
+    {
+        $detailtemp = new sale\Detailtemp();
+        //设置过滤方法
+        $this->request->filter(['strip_tags', 'trim']);
+        if ($this->request->isAjax()) {
+            //如果发送的来源是Selectpage，则转发到Selectpage
+            if ($this->request->request('keyField')) {
+                return $this->selectpage();
+            }
+            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+
+            $list = $detailtemp
+                ->where($where)
+                ->where(['detail_main_id'=>1,'detail_operator'=>$this->auth->nickname])
+                ->order($sort, $order)
+                ->paginate($limit);
+            $order_sum=$this->total();
+
+            $result = array("total" => $list->total(), "rows" => $list->items(), "extend" => $order_sum[0]);
+
+            return json($result);
+        }
+        return $this->view->fetch();
+    }
+
+    /**
+     * 添加
+     */
+    public function detailadd()
+    {
+    	  $detailtemp = new sale\Detailtemp();
+        if ($this->request->isPost()) {
+            $params = $this->request->post("row/a");
+            if ($params) {
+                $params = $this->preExcludeFields($params);
+
+                if ($this->dataLimit && $this->dataLimitFieldAutoFill) {
+                    $params[$this->dataLimitField] = $this->auth->company_id;
+                }
+                $sn = $detailtemp
+                		->where(['detail_main_id'=>1,'company_id'=>$this->auth->company_id,'detail_operator'=>$this->auth->nickname])
+                		->count();
+                $params['detail_sn'] = $sn+1;
+                $params['detail_main_id'] = 1;
+                $params['detail_date'] = time();
+                $params['detail_operator'] = $this->auth->nickname;
+                $result = false;
+                Db::startTrans();
+                try {
+                    //是否采用模型验证
+                    if ($this->modelValidate) {
+                        $name = str_replace("\\model\\", "\\validate\\", get_class($this->model));
+                        $validate = is_bool($this->modelValidate) ? ($this->modelSceneValidate ? $name . '.add' : $name) : $this->modelValidate;
+                        $this->model->validateFailException(true)->validate($validate);
+                    }
+                    $result = $detailtemp->allowField(true)->save($params);
+                   // $this->reorder();
+                   // $order_sum=$this->total();
+                    Db::commit();
+                   // $this->reorder();
+                   // $order_sum=$this->total();
+                } catch (ValidateException $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                } catch (PDOException $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                } catch (Exception $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                }
+                if ($result !== false) {
+                    $this->success('OK',null,$params);//将提交的信息返回给JS,再由JS中的api_add去解析给parent里的字段赋值
+                } else {
+                    $this->error(__('No rows were inserted'));
+                }
+            }
+            $this->error(__('Parameter %s can not be empty', ''));
+        }
+        $this->assignconfig("user_id", $this->request->param('user_id'));
+        return $this->view->fetch();
+      
+    }
+    /**
+     * 编辑
+     */
+    public function detailedit($ids = null)
+    {
+    	  $detailtemp = new sale\Detailtemp();
+        $row = $detailtemp->get($ids);
+        if (!$row) {
+            $this->error(__('No Results were found'));
+        }
+        $adminIds = $this->getDataLimitAdminIds();
+        if (is_array($adminIds)) {
+            if (!in_array($row[$this->dataLimitField], $adminIds)) {
+                $this->error(__('You have no permission'));
+            }
+        }
+        if ($this->request->isPost()) {
+            $params = $this->request->post("row/a");
+            if ($params) {
+                $params = $this->preExcludeFields($params);
+                $result = false;
+                Db::startTrans();
+                try {
+                    //是否采用模型验证
+                    if ($this->modelValidate) {
+                        $name = str_replace("\\model\\", "\\validate\\", get_class($detailtemp));
+                        $validate = is_bool($this->modelValidate) ? ($this->modelSceneValidate ? $name . '.edit' : $name) : $this->modelValidate;
+                        $row->validateFailException(true)->validate($validate);
+                    }
+                    $result = $row->allowField(true)->save($params);
+                    $this->reorder();
+                	  //$order_sum=$this->total();
+                	  Db::commit();
+                	  $this->reorder();
+                	  //$order_sum=$this->total();
+                } catch (ValidateException $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                } catch (PDOException $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                } catch (Exception $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                }
+                if ($result !== false) {
+                    $this->success('OK',null,null);
+                } else {
+                    $this->error(__('No rows were updated'));
+                }
+            }
+            $this->error(__('Parameter %s can not be empty', ''));
+        }
+        $this->view->assign("row", $row);
+        
+        return $this->view->fetch();
+    }
+    /**
+     * 删除
+     */
+    public function detaildel($ids = "")
+    {
+        $detailtemp = new sale\Detailtemp();
+        if (!$this->request->isPost()) {
+            $this->error(__("Invalid parameters"));
+        }
+        $ids = $ids ? $ids : $this->request->post("ids");
+        if ($ids) {
+            $pk = $detailtemp->getPk();
+            $adminIds = $this->getDataLimitAdminIds();
+            if (is_array($adminIds)) {
+                $this->model->where($this->dataLimitField, 'in', $adminIds);
+            }
+            $list = $detailtemp->where($pk, 'in', $ids)->select();
+
+            $count = 0;
+            Db::startTrans();
+            try {
+                foreach ($list as $k => $v) {
+                    $count += $v->delete();
+                }
+                $this->reorder();
+                //$order_sum=$this->total();
+                Db::commit();
+                //$this->reorder();
+                //$order_sum=$this->total();
+            } catch (PDOException $e) {
+                Db::rollback();
+                $this->error($e->getMessage());
+            } catch (Exception $e) {
+                Db::rollback();
+                $this->error($e->getMessage());
+            }
+            if ($count) {
+                $this->success('OK',null,null);
+            } else {
+                $this->error(__('No rows were deleted'));
+            }
+        }
+        $this->error(__('Parameter %s can not be empty', 'ids'));
+    }
+    
+    /**
+    *排序
+    */
+    public function reorder() 
+    {
+    	$detailtemp = new sale\Detailtemp();
+    	list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+    	$detail_temp = $detailtemp
+          ->where(['detail_main_id'=>1,'company_id'=>$this->auth->company_id,'detail_operator'=>$this->auth->nickname])
+          ->order('detail_id asc')
+          ->select();
+      $info =[];        
+    	$i = 0;
+      foreach ($detail_temp as $k => $v) {
+        $i = $i+1;
+        $infod =[];
+    	  $infod['detail_id'] = $v['detail_id'];
+    	  $infod['detail_sn'] = $i;
+        $info[]=$infod;
+      }
+      $this->model->saveall($info);
+    }
+    	/**
+    	*合计
+    	*/
+    	public function total() 
+    	{
+    	//2、合计
+    	$detailtemp = new sale\Detailtemp();
+    	list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+    	
+    	$detail_sum = $detailtemp
+    				->field('sum(detail_number) as number,sum(detail_amount) as amount')
+    				->where(['detail_main_id'=>1,'company_id'=>$this->auth->company_id,'detail_operator'=>$this->auth->nickname])
+    				->select();
+
+     return $detail_sum;
+    }
+    /**
+     * 清空明细数据
+     */
+    public function cleardetail()
+    {
+    	  $detailtemp = new sale\Detailtemp();
+    	  list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+        $detai_result = $detailtemp
+           	   ->where($where)
+            	->where(['detail_main_id'=>1,'detail_operator'=>$this->auth->nickname])
+            	->delete();
+          $this->success('OK',null,null);
+           
     }
 
 

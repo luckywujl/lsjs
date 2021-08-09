@@ -13,7 +13,7 @@ class Instock extends Model
     
 
     // 表名
-    protected $name = 'stock_instock';
+    protected $name = 'stock_iostock';
     
     // 自动写入时间戳字段
     protected $autoWriteTimestamp = false;
@@ -25,16 +25,16 @@ class Instock extends Model
 
     // 追加属性
     protected $append = [
-    'instock_date_text'
+    'iostock_date_text'
 
     ];
-    public function getInstockDateTextAttr($value, $data)
+    public function getIostockDateTextAttr($value, $data)
     {
-        $value = $value ? $value : (isset($data['instock_date']) ? $data['instock_date'] : '');
+        $value = $value ? $value : (isset($data['iostock_date']) ? $data['iostock_date'] : '');
         return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
     }
     
-    protected function setInstockDateAttr($value)
+    protected function setIostockDateAttr($value)
     {
         return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }
