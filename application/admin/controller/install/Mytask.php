@@ -199,6 +199,7 @@ class Mytask extends Backend
                         $validate = is_bool($this->modelValidate) ? ($this->modelSceneValidate ? $name . '.edit' : $name) : $this->modelValidate;
                         $row->validateFailException(true)->validate($validate);
                     }
+                    $product['product_user_name'] = $params['log_user_name'];
                     $product['product_tel'] = $params['log_tel'];
                     $product['product_address'] = $params['log_address'];
                     $product['product_water_gage'] = $params['log_water_gage'];

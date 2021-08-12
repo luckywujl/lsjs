@@ -104,6 +104,7 @@ class Instock extends Backend
         	       	$params['iostock_stock_number'] = $params['iostock_number'];
         	       }
         	       $params['iostock_product_type'] = $production_info['production_type'];
+        	       $params['iostock_product_type'] = $production_info['production_type'];
                 $params['iostock_date']=time();
                 $params['iostock_operator'] = $this->auth->nickname;
                 $params['iostock_type'] = 0;

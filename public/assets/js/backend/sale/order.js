@@ -151,6 +151,7 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
 		           $("#c-order_user_id").selectPageRefresh();
 		           $("#c-order_user_tel").val(data[0].mobile);
          	     $("#c-order_user_address").val(data[0].address);
+         	     $("#c-order_user_name").val(data[0].name);
 		           }
 	       	    },function (data) {
 	       	    	

@@ -229,12 +229,12 @@ class Dispatch extends Backend
                         $row->validateFailException(true)->validate($validate);
                     }
                     
-                    if($row['log_status']!=='5') {
-                    	  if ($params['log_status']=='5') {
-                    	  	$params['log_log'] = $params['log_log'].date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'完成销售回访；'; 
-                    	  }
+                    if($row['log_status']!=='1') {
+                    	  	$params['log_log'] = $params['log_log'].date('Y-m-d H:i:s',time()).':由'.$this->auth->nickname.'预约'.$params['log_date'].'安排'.$params['log_operator'].'安装;'; 
                     }
+                   // $params['log_date'] = strtotime($params['log_date']);
                     $params['log_callbacker'] = $this->auth->nickname;
+                    $params['log_status'] = 1 ;
                     $result = $row->allowField(true)->save($params);
                     Db::commit();
                 } catch (ValidateException $e) {

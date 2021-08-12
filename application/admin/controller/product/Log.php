@@ -49,11 +49,20 @@ class Log extends Backend
                 return $this->selectpage();
             }
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+            if (!empty($product_id)){
 
             $list = $this->model
                 ->where($where)
+                ->where(['product_id'=>$product_id])
                 ->order($sort, $order)
                 ->paginate($limit);
+             }else {
+             $list = $this->model
+                ->where($where)
+        
+                ->order($sort, $order)
+                ->paginate($limit);
+             }
 
             $result = array("total" => $list->total(), "rows" => $list->items());
 

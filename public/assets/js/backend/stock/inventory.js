@@ -28,6 +28,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         //{field: 'production_id', title: __('Production_id')},
                         {field: 'production_name', title: __('Production_name'), operate: 'LIKE'},
                         {field: 'production_type', title: __('Production_type'), operate: 'LIKE'},
+                        {field: 'production_unit', title: __('iostock_unit')},
                         {field: 'production_consumable_material', title: __('Production_consumable_material'), operate: 'LIKE'},
                         
                         {field: 'production_stock_number', title: __('Production_stock_number')},

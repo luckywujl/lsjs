@@ -30,6 +30,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'iostock_code', title: __('iostock_code'), operate: 'LIKE'},
                         {field: 'iostock_product_name', title: __('iostock_product_name'), operate: 'LIKE'},
                         {field: 'iostock_product_type', title: __('iostock_product_type'), operate: 'LIKE'},
+                        {field: 'iostock_unit', title: __('iostock_unit')},
                         {field: 'iostock_number', title: __('iostock_number')},
                         {field: 'iostock_stock_number', title: __('iostock_stock_number')},
                         {field: 'iostock_operator', title: __('iostock_operator'), operate: 'LIKE'},

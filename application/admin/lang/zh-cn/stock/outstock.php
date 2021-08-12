@@ -15,6 +15,7 @@ return [
     'Iostock_type 0'       => '入库',
     'Iostock_type 1'       => '出库',
     'Iostock_remark'       => '备注',
+    'Iostock_unit'       => '单位',
     'Add'						=> '出库',
     'Company_id'           => '数据归属'
 ];

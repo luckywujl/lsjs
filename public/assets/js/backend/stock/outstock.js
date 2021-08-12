@@ -31,6 +31,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         //{field: 'instock_product_id', title: __('Instock_product_id')},
                         {field: 'iostock_product_name', title: __('Iostock_product_name'), operate: 'LIKE'},
                         {field: 'iostock_product_type', title: __('Iostock_product_type'), operate: 'LIKE'},
+                        {field: 'iostock_unit', title: __('iostock_unit')},
                         //{field: 'instock_number', title: __('Instock_number')},
                         {field: 'iostock_outnumber', title: __('Iostock_outnumber')},
                         {field: 'iostock_stock_number', title: __('Iostock_stock_number')},

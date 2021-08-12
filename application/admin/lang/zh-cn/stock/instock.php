@@ -10,6 +10,7 @@ return [
     'Iostock_stock_number' => '实时库存',
     'Iostock_operator'     => '入库操作员',
     'Iostock_remark'       => '备注',
+    'Iostock_unit'       => '单位',
     'Add'						=> '入库',
     'Company_id'           => '数据归属'
 ];
