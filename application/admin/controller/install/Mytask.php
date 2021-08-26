@@ -176,7 +176,7 @@ class Mytask extends Backend
         		->where(['production_name'=>$info_info['product_name'],'production_type'=>$info_info['product_type'],'company_id'=>$this->auth->company_id])
         		->find();
         if($row['log_type']!=='售后维修') {
-          $info_info['product_replacement_date'] = time()+$production_info['production_replacement_cycle']*365*86400;
+          $info_info['product_replacement_date'] = time()+$production_info['production_replacement_cycle']*30*86400;//改为按月计算了
         }
         $adminIds = $this->getDataLimitAdminIds();
         if (is_array($adminIds)) {
