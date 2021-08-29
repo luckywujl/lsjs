@@ -9,6 +9,7 @@ return [
     'Log_water_gage'     => '新水压',
     'Log_remark'         => '装机备注',
     'Log_user_name'      => '用户名称',
+    'Log_user_contact'      => '装机联系人',
     'Log_address'        => '装机地址',
     'Log_tel'            => '联系电话',
     'Log_user_id'        => '用户ID',

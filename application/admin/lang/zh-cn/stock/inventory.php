@@ -3,6 +3,7 @@
 return [
     'Production_id'                  => '产品信息ID',
     'Production_name'                => '产品名称',
+    'Production_classify'            => '产品分类',
     'Production_type'                => '产品型号',
     'Production_consumable_material' => '使用耗材',
     'Production_replacement_cycle'   => '维护周期',
@@ -14,6 +15,7 @@ return [
     'Iostock_sn'           => '序号',
     'Iostock_product_id'   => '出入库产品ID',
     'Iostock_product_name' => '产品名称',
+    
     'Iostock_product_type' => '产品型号',
     'Iostock_unit'         => '单位',
     'Iostock_number'       => '入库数量',

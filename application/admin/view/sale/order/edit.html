@@ -15,17 +15,17 @@
             <input id="c-order_service_datetime"  class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[order_service_datetime]" type="text" value="{:$row.order_service_datetime?datetime($row.order_service_datetime):''}">
         </div>
         
-        <label class="control-label col-xs-12 col-sm-1">{:__('Order_sale_type')}:</label>
-        <div class="col-xs-12 col-sm-2" >
-            <input id="c-order_sale_type"  readonly="readonly" class="form-control" name="row[order_sale_type]" type="text" value="{$row.order_sale_type|htmlentities}">
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_user_name')}:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_user_id" data-rule="required" class="form-control selectpage" data-source="user/user/index" data-field="name" data-primary-key="id" name="row[order_user_id]" type="text" value="{$row.order_user_id|htmlentities}">
         </div>
    
         
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Order_user_name')}:</label>
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_user_contact')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_user_id" data-rule="required" class="form-control selectpage" data-source="user/user/index" data-field="name" data-primary-key="id" name="row[order_user_id]" type="text" value="{$row.order_user_id|htmlentities}">
+            <input id="c-order_user_contact" data-rule="required" class="form-control"  name="row[order_user_contact]" type="text" value="{$row.order_user_contact|htmlentities}">
         </div>
        
             
@@ -74,15 +74,18 @@
         </div>
     </div>
     <div class="form-group">
+         <label class="control-label col-xs-12 col-sm-2">{:__('Order_sale_type')}:</label>
+        <div class="col-xs-12 col-sm-2" >
+            <input id="c-order_sale_type"  readonly="readonly" class="form-control" name="row[order_sale_type]" type="text" value="{$row.order_sale_type|htmlentities}">
+        </div>
         
-        
-        <label class="control-label col-xs-12 col-sm-2">{:__('Order_operator')}:</label>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_operator')}:</label>
         <div class="col-xs-12 col-sm-2">
             <input id="c-order_operator" readonly="readonly" class="form-control" name="row[order_operator]" type="text" value="{$row.order_operator|htmlentities}">
         </div>
    
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_remark')}:</label>
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-xs-12 col-sm-2">
             <textarea id="c-order_remark" class="form-control " rows="1" name="row[order_remark]" cols="50">{$row.order_remark|htmlentities}</textarea>
         </div>
         <button type="button" class="btn btn-info   btn-embossed btn-printing">{:__('打印')}</button>

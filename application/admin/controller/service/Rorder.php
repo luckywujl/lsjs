@@ -177,7 +177,7 @@ class Rorder extends Backend
     {
         $row = $this->model->get($ids);
         if (!$row) {
-            $this->error(__('No Results were found'));
+           // $this->error(__('No Results were found'));
         }
         $info = new product\Info();
         $log = new product\Log();

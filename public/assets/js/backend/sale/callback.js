@@ -32,6 +32,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'tasknumber', title: __('Tasknumber'), operate: 'LIKE'},
                         //{field: 'log_remark', title: __('Log_remark'), operate: 'LIKE'},
                         {field: 'log_user_name', title: __('Log_user_name'), operate: 'LIKE'},
+                        {field: 'log_user_contact', title: __('Log_user_contact'), operate: 'LIKE'},
                         {field: 'log_address', title: __('Log_address'), operate: 'LIKE'},
                         {field: 'log_tel', title: __('Log_tel'), operate: 'LIKE'},
                         //{field: 'log_user_id', title: __('Log_user_id')},

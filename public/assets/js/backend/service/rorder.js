@@ -9,10 +9,10 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
                 extend: {
                     index_url: 'sale/order/index' + location.search,
                     add_url: 'sale/order/add',
-                    edit_url: 'sale/order/edit',
-                    del_url: 'sale/order/del',
-                    multi_url: 'sale/order/multi',
-                    import_url: 'sale/order/import',
+                    edit_url: 'sale/rorder/edit',
+                    del_url: 'sale/rorder/del',
+                    multi_url: 'sale/rorder/multi',
+                    import_url: 'sale/rorder/import',
                     table: 'order_main',
                 }
             });
@@ -180,7 +180,7 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
        		  if ($("#c-order_user_id").val()!=='') {
        		  	var ids = Table.api.selectedids(table);
        			if (ids.length>0) {
-       			Fast.api.open('service/detailtemp/edit','修改产品',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
+       			Fast.api.open('service/detailtemp/edit?ids='+ids[0]+'&user_id='+$("#c-order_user_id").val(),'修改产品',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
 	            area:['85%', '95%'],
 		           callback: function (data) {
 		           	 
@@ -341,6 +341,12 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
         detailadd: function () {   
 		     
         		//实现产品名称和产品型号联动
+        		 $("#c-detail_product_classify").on('change',function(){
+         		var classify = $("#c-detail_product_classify").val();
+          	   $("#c-detail_product_name").selectPageClear();
+            //改变下面这个框的数据源
+          	  $("#c-detail_product_name_text").data("selectPageObject").option.data = 'base/production/getproductname?production_classify='+classify;   
+       	 	});
         	  $("#c-detail_product_name").on('change',function(){
          		var product = $("#c-detail_product_name").val();
           	   $("#c-detail_product_id").selectPageClear();

@@ -61,9 +61,13 @@
     
    
     <div class="form-group">
-        
-        <label class="control-label col-xs-12 col-sm-2">{:__('Order_remark')}:</label>
-        <div class="col-xs-12 col-sm-6">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_user_contact')}:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_user_contact" data-rule="required" readonly="readonly" class="form-control" name="row[order_user_contact]" type="text" value="{$user_info.user_contact|htmlentities}">
+        		
+        </div>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_remark')}:</label>
+        <div class="col-xs-12 col-sm-3">
             <textarea id="c-order_remark" class="form-control " rows="1" name="row[order_remark]" cols="50"></textarea>
         </div>
            

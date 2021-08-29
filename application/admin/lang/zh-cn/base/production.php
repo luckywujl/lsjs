@@ -6,6 +6,8 @@ return [
     'Production_type'                => '产品型号',
     'Production_unit'                => '单位',
     'Production_price'               => '单价',
+    'Production_classify'				 => '产品分类',
+    'Production_classify_id'			 => '产品分类ID',
     'Production_consumable_material' => '使用耗材',
     'Production_replacement_cycle'   => '维护周期（月）',
     'Production_stock_number'        => '库存数量',

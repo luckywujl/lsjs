@@ -32,6 +32,7 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
                         {field: 'repair_service_datetime', title: __('Repair_service_datetime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
                         //{field: 'repair_user_id', title: __('Repair_user_id'), operate: 'LIKE'},
                         {field: 'repair_user_name', title: __('Repair_user_name'), operate: 'LIKE'},
+                        {field: 'repair_user_contact', title: __('Repair_user_contact'), operate: 'LIKE'},
                         {field: 'repair_tel', title: __('Repair_tel'), operate: 'LIKE'},
                         {field: 'repair_address', title: __('Repair_address'), operate: 'LIKE'},
                         //{field: 'repair_product_id', title: __('Repair_product_id')},
@@ -67,6 +68,7 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
 		           	//document.getElementById("user_info").style.visibility="visible";
 		            $("#c-repair_user_id").val(data[0].product_user_id);
 		            $("#c-repair_user_name").val(data[0].product_user_name);
+		            $("#c-repair_user_contact").val(data[0].product_user_contact);
 		            $("#c-repair_tel").val(data[0].product_tel);
 		            $("#c-repair_address").val(data[0].product_address);
 		            $("#c-repair_product_id").val(data[0].product_id);
@@ -97,7 +99,7 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
        		//弹窗显示开具销售单
 	         $(document).on("click",".btn-addsale",function () {
 	           if ($("#c-repair_user_id").val()!=='') {
-         	  Fast.api.open('service/rorder/add?user_id='+$("#c-repair_user_id").val()+'&user_name='+$("#c-repair_user_name").val()+'&user_tel='+$("#c-repair_tel").val()+'&user_address='+$("#c-repair_address").val()+'&engineer='+$("#c-repair_engineer").val()+'&service_datetime='+$("#c-repair_service_datetime").val(),'产品销售',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
+         	  Fast.api.open('service/rorder/add?user_id='+$("#c-repair_user_id").val()+'&user_name='+$("#c-repair_user_name").val()+'&user_contact='+$("#c-repair_user_contact").val()+'&user_tel='+$("#c-repair_tel").val()+'&user_address='+$("#c-repair_address").val()+'&engineer='+$("#c-repair_engineer").val()+'&service_datetime='+$("#c-repair_service_datetime").val(),'产品销售',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
 	           area:['90%', '90%'],
 		           callback: function (data) {	
 		           //alert(data);
@@ -145,7 +147,7 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
         	//弹窗显示开具销售单
 	         $(document).on("click",".btn-addsale",function () {
 	         	
-         	  Fast.api.open('service/rorder/add?user_id='+$("#c-repair_user_id").val()+'&user_name='+$("#c-repair_user_name").val()+'&user_tel='+$("#c-repair_tel").val()+'&user_address='+$("#c-repair_address").val()+'&engineer='+$("#c-repair_engineer").val()+'&service_datetime='+$("#c-repair_service_datetime").val(),'产品销售',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
+         	  Fast.api.open('service/rorder/add?user_id='+$("#c-repair_user_id").val()+'&user_name='+$("#c-repair_user_name").val()+'&user_contact='+$("#c-repair_user_contact").val()+'&user_tel='+$("#c-repair_tel").val()+'&user_address='+$("#c-repair_address").val()+'&engineer='+$("#c-repair_engineer").val()+'&service_datetime='+$("#c-repair_service_datetime").val(),'产品销售',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
 	           area:['90%', '90%'],
 		           callback: function (data) {	
 		           //alert(data);

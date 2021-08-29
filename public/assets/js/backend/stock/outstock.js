@@ -48,6 +48,13 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.bindevent(table);
         },
         add: function () {
+        	//实现产品名称和产品型号联动
+        	  $("#c-iostock_product_classify").on('change',function(){
+         		var classify = $("#c-iostock_product_classify").val();
+          	   $("#c-iostock_product_name").selectPageClear();
+            //改变下面这个框的数据源
+          	  $("#c-iostock_product_name_text").data("selectPageObject").option.data = 'base/production/getproductname?production_classify='+classify;   
+       	 	});
         	$("#c-iostock_product_name").on('change',function(){
          		var product = $('#c-iostock_product_name').val();
          		

@@ -5,6 +5,7 @@ return [
     'Iostock_date'         => '入库日期',
     'Iostock_code'         => '入库单号',
     'Iostock_product_name' => '产品名称',
+    'Iostock_product_classify' => '产品分类',
     'Iostock_product_type' => '产品型号',
     'Iostock_number'       => '入库数量',
     'Iostock_stock_number' => '实时库存',

@@ -113,7 +113,7 @@
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('沟通状态')}:</label>
-        <div class="col-xs-12 col-sm-7">
+        <div class="col-xs-12 col-sm-5">
             
             <div class="radio">
             {foreach name="productStatusList" item="vo"}
@@ -121,6 +121,10 @@
             {/foreach}
             </div>
 
+        </div>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Product_user_contact')}:</label>
+        <div class="col-xs-12 col-sm-1">
+            <input id="c-product_user_contact" class="form-control" name="row[product_user_contact]" type="text" value="{$row.product_user_contact|htmlentities}">
         </div>
         <button type="button" class="btn btn-info btn-addsale">{:__('销售开单')}</button>
     </div>

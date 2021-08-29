@@ -1,0 +1,90 @@
+
+<form id="logedit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+	 
+	  <div class="form-group">
+       
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_code" readonly="readonly" class="form-control" name="row[log_code]" type="text" value="{$row.log_code|htmlentities}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_type" class="form-control" readonly="readonly" name="row[log_type]" type="text" value="{$row.log_type|htmlentities}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Productinfo.product_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_name" class="form-control" readonly="readonly" data-rule="required"  name="row[product_name]" type="text" value="{:$row.productinfo.product_name}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Productinfo.product_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-product_type" class="form-control" readonly="readonly" data-rule="required"  name="row[product_type]" type="text" value="{:$row.productinfo.product_type}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_date" class="form-control datetimepicker" data-rule="required" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[log_date]" type="text" value="{:$row.log_date?datetime($row.log_date):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_operator')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_operator" data-rule="required" class="form-control selectpage" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname" name="row[log_operator]" type="text" value="{$row.log_operator|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_user_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_user_name" class="form-control" readonly="readonly" name="row[log_user_name]" type="text" value="{$row.log_user_name|htmlentities}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_address')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_address" class="form-control" readonly="readonly" name="row[log_address]" type="text" value="{$row.log_address|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_tel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_tel" class="form-control" readonly="readonly" name="row[log_tel]" type="text" value="{$row.log_tel|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group" hidden="hidden">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_log')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_log" class="form-control" name="row[log_log]" type="text" value="{$row.log_log|htmlentities}">
+        </div>
+    </div>
+   
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Log_remark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+        		<textarea id="c-log_remark" class="form-control " rows="5" name="row[log_remark]" cols="50">{$row.log_remark|htmlentities}</textarea>
+        </div>
+    </div>
+    
+  <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('单个派单')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>     
+    
+    
+    
+</form>

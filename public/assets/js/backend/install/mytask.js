@@ -120,7 +120,30 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             	$(".btn-editone").data("area",["90%","90%"]);
             	$(".btn-editone").data("title",'施工记录');
             })
-            
+            //弹窗显示开具销售单
+	         $(document).on("click",".btn-addsale",function () {
+	           if ($("#c-repair_user_id").val()!=='') {
+	           var inDate = new Date();
+	           var order_service_datetime = inDate.getFullYear()+'-'+(inDate.getMonth()+1)+'-'+inDate.getDate()+" "+inDate.getHours()+':'+inDate.getMinutes()+':'+inDate.getSeconds();
+         		
+         	  Fast.api.open('service/rorder/add?user_id='+$("#c-log_user_id").val()+'&user_name='+$("#c-log_user_name").val()+'&user_tel='+$("#c-log_tel").val()+'&user_address='+$("#c-log_address").val()+'&engineer='+$("#c-log_operator").val()+'&service_datetime='+order_service_datetime,'产品销售',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
+	           area:['90%', '90%'],
+		           callback: function (data) {	
+		           //alert(data);
+		           
+		           //$("#c-order_user_id").val(data);
+		           //$("#c-order_user_id").selectPageRefresh();
+		           //var id = $("#c-order_user_id").val();
+       	 		//清空客户其它信息，待POST返回数据填写，
+       	 		
+	       	    },function (data) {
+	       	    	
+	       	    }
+	            });
+	         } else {
+	         		alert('请先确定报修客户！');
+	         }
+	         });
             Controller.api.bindevent();
         },
         logedit: function () {

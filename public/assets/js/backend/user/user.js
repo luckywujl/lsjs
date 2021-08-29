@@ -29,6 +29,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                        // {field: 'group_id', title: __('Group_id')},
                         {field: 'username', title: __('Username'), operate: 'LIKE'},
                         {field: 'name', title: __('Name'), operate: 'LIKE'},
+                        {field: 'contact', title: __('Contact'), operate: 'LIKE'},
                        // {field: 'password', title: __('Password'), operate: 'LIKE'},
                        // {field: 'salt', title: __('Salt'), operate: 'LIKE'},
                        // {field: 'email', title: __('Email'), operate: 'LIKE'},

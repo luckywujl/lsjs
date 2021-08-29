@@ -26,9 +26,9 @@
         <button type="button" class="btn btn-success btn-adduser">{:__('查找')}</button>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Order_saleman')}:</label>
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_user_contact')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_saleman" data-rule="required" class="form-control selectpage" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname" name="row[order_saleman]" type="text">
+            <input id="c-order_user_contact" data-rule="required" class="form-control" name="row[order_user_contact]" type="text">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_engineer')}:</label>
@@ -61,22 +61,33 @@
     
    
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Order_sale_type')}:</label>
+    	  <label class="control-label col-xs-12 col-sm-2">{:__('Order_saleman')}:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_saleman" data-rule="required" class="form-control selectpage" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname" name="row[order_saleman]" type="text">
+        </div>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_sale_type')}:</label>
         <div class="col-xs-12 col-sm-2">
             <input id="c-order_sale_type"  class="form-control"  name="row[order_sale_type]" type="text">
         </div>
-        <label class="control-label col-xs-12 col-sm-1">{:__('Order_remark')}:</label>
-        <div class="col-xs-12 col-sm-4">
-            <textarea id="c-order_remark" class="form-control " rows="1" name="row[order_remark]" cols="50"></textarea>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_user_area')}:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-order_user_area"  class="form-control selectpage" data-source="base/area/index" data-field="area" data-primary-key="area"  name="row[order_user_area]" type="text">
         </div>
-            <button type="button" id="new"  class="btn btn-info btn-embossed btn-new">{:__('新建')}</button>
-            
-            <button type="button" class="btn btn-info btn-embossed btn-printing ">{:__('打印')}</button>
-            <button type="button" class="btn btn-success btn-embossed btn-verify">{:__('保存')}</button>
+        
+           
            
             
        
     </div>
+    <div class="form-group">
+     <label class="control-label col-xs-12 col-sm-2">{:__('Order_remark')}:</label>
+        <div class="col-xs-12 col-sm-5">
+            <textarea id="c-order_remark" class="form-control " rows="1" name="row[order_remark]" cols="50"></textarea>
+        </div>
+        <button type="button" id="new"  class="btn btn-info btn-embossed btn-new">{:__('新建')}</button>
+        <button type="button" class="btn btn-info btn-embossed btn-printing ">{:__('打印')}</button>
+        <button type="button" class="btn btn-success btn-embossed btn-verify">{:__('保存')}</button>
+   </div>
     
    
     

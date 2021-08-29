@@ -32,6 +32,7 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
                         {field: 'order_datetime', title: __('Order_datetime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime, datetimeFormat:"YYYY-MM-DD"},
                         //{field: 'order_user_id', title: __('Order_user_id')},
                         {field: 'order_user_name', title: __('Order_user_name'), operate: 'LIKE'},
+                        {field: 'order_user_contact', title: __('Order_user_contact'), operate: 'LIKE'},
                         {field: 'order_user_tel', title: __('Order_user_tel'), operate: 'LIKE'},
                         {field: 'order_user_address', title: __('Order_user_address'), operate: 'LIKE'},
                         {field: 'order_number_total', title: __('Order_number_total'), operate:'BETWEEN'},
@@ -128,6 +129,11 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
          	 				$("#c-order_user_tel").val(data.mobile);
          	   			$("#c-order_user_address").val(data.address);
          	   			$("#c-order_user_name").val(data.name);
+         	   			$("#c-order_user_contact").val(data.contact);
+         	   			$("#c-order_user_area").val(data.area);
+         	   			
+         	   			$("#c-order_user_area").selectPageRefresh();
+         	   			
          	   			
          					console.info(data);     													      
                			return false;    															
@@ -152,6 +158,10 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
 		           $("#c-order_user_tel").val(data[0].mobile);
          	     $("#c-order_user_address").val(data[0].address);
          	     $("#c-order_user_name").val(data[0].name);
+         	     $("#c-order_user_contact").val(data[0].contact);
+         	     $("#c-order_user_area").val(data[0].area);
+         	    
+         	     $("#c-order_user_area").selectPageRefresh();
 		           }
 	       	    },function (data) {
 	       	    	
@@ -275,10 +285,14 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
              			data:{id:$("#c-order_user_id").val()} //再将收到的create_code用POST方式发给主表控制器的total
          	   	}, 
          	 			function (data,ret) { //success 用于接收主表控制器发过来的数据
-         	 				$("#c-order_user_tel").val(data.mobile);
+         	 			
+         	   			$("#c-order_user_tel").val(data.mobile);
          	   			$("#c-order_user_address").val(data.address);
          	   			$("#c-order_user_name").val(data.name);
+         	   			$("#c-order_user_contact").val(data.contact);
+         	   			$("#c-order_user_area").val(data.area);
          	   			
+         	   			$("#c-order_user_area").selectPageRefresh();
          					console.info(data);     													      
                			return false;    															
            				},function(data){
@@ -300,6 +314,10 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
 		           $("#c-order_user_id").selectPageRefresh();
 		           $("#c-order_user_tel").val(data[0].mobile);
          	     $("#c-order_user_address").val(data[0].address);
+         	     $("#c-order_user_name").val(data[0].name);
+         	     $("#c-order_user_contact").val(data[0].contact);
+         	     $("#c-order_user_area").val(data[0].area);
+         	     $("#c-order_user_area").selectPageRefresh();
 		           }
 	       	    },function (data) {
 	       	    	
@@ -424,8 +442,16 @@ define(['jquery', 'bootstrap', 'backend', 'table','form','printing'], function (
 		     });
 		     
 		     
-		     
+		     //实现产品名称和产品型号联动
+        	  $("#c-detail_product_classify").on('change',function(){
+         		var classify = $("#c-detail_product_classify").val();
+          	   $("#c-detail_product_name").selectPageClear();
+            //改变下面这个框的数据源
+          	  $("#c-detail_product_name_text").data("selectPageObject").option.data = 'base/production/getproductname?production_classify='+classify;   
+       	 	});
+        		
         		//实现产品名称和产品型号联动
+        		
         	  $("#c-detail_product_name").on('change',function(){
          		var product = $("#c-detail_product_name").val();
           	   $("#c-detail_product_id").selectPageClear();

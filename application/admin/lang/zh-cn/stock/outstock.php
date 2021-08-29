@@ -6,6 +6,7 @@ return [
     'Iostock_code'         => '出库单号',
     'Iostock_product_id'   => '出入库产品ID',
     'Iostock_product_name' => '产品名称',
+    'Iostock_product_classify' => '产品分类',
     'Iostock_product_type' => '产品型号',
     'Iostock_number'       => '入库数量',
     'Iostock_outnumber'    => '出库数量',

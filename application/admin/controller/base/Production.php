@@ -224,15 +224,27 @@ class Production extends Backend
      */
     public function getproductname()
     {
+        $product = $this->request->param();
         //设置过滤方法
         $this->request->filter(['strip_tags', 'trim']);
         if ($this->request->isAjax()) {
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
-            $list = $this->model
+            if(!empty($product['production_classify'])) { 
+            	 $list = $this->model
                 ->where($where)
+                ->where(['production_classify'=>$product['production_classify']])
                 ->group('production_name')
                 ->order($sort, $order)
                 ->paginate($limit);
+            }else {
+            	 $list = $this->model
+                ->where($where)
+                //->where(['production_classify'=>$product['production_classify']])
+                ->group('production_name')
+                ->order($sort, $order)
+                ->paginate($limit);
+           }
+            
             $result = array("total" => $list->total(), "rows" => $list->items());
             return json($result);
         }

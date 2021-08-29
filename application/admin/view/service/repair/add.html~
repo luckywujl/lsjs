@@ -1,0 +1,99 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    
+    
+    <div class="form-group" hidden="hidden">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_user_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-repair_user_id" data-rule="required"  class="form-control " name="row[repair_user_id]" type="text" value="">
+        		<input id="c-repair_id"  class="form-control"  type="text">
+        </div>
+        
+    </div>
+    <div class="form-group" >
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_user_name')}:</label>
+        <div class="col-xs-12 col-sm-7">
+            <input id="c-repair_user_name" readonly="readonly" class="form-control" name="row[repair_user_name]" type="text">
+        </div>
+        <button type="button" class="btn btn-success btn-adduser">{:__('查找')}</button>
+    </div>
+    <div class="form-group" >
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_user_contact')}:</label>
+        <div class="col-xs-12 col-sm-7">
+            <input id="c-repair_user_contact" readonly="readonly" class="form-control" name="row[repair_user_contact]" type="text">
+        </div>
+        
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_tel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-repair_tel" class="form-control" name="row[repair_tel]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_address')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-repair_address" class="form-control" name="row[repair_address]" type="text">
+        </div>
+    </div>
+    <div class="form-group" hidden="hidden">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_product_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-repair_product_id" data-rule="required" data-source="repair/product/index" class="form-control selectpage" name="row[repair_product_id]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_product_code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-repair_product_code" readonly="readonly" class="form-control" name="row[repair_product_code]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_remark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-repair_remark" class="form-control " rows="5" name="row[repair_remark]" cols="50"></textarea>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_service_datetime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-repair_service_datetime" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[repair_service_datetime]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_engineer')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-repair_engineer" class="form-control selectpage" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname"  name="row[repair_engineer]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_isfree')}:</label>
+        <div class="col-xs-12 col-sm-8">
+           {:build_radios('row[repair_isfree]', [0=>__('Repair_isfree 0'),1=>__('Repair_isfree 1')],0)}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Repair_amount')}:</label>
+        <div class="col-xs-12 col-sm-6">
+            <input id="c-repair_amount" class="form-control" name="row[repair_amount]" type="number" value="0.00">
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            
+        </div>
+        
+    </div>
+    
+   
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+        		<button type="reset" class="btn btn-default btn-embossed">{:__('新建')}</button>
+            
+            <button type="button" class="btn btn-info btn-print"><i class="fa fa-print"></i>{:__('打印')}</button>
+            
+            <button type="button" class="btn btn-success btn-embossed btn-verify">{:__('保存')}</button>
+            <button type="button" class="btn btn-info btn-addsale">{:__('销售出库')}</button>
+        </div>
+    </div>
+</form>

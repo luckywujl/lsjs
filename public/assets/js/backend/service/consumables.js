@@ -42,6 +42,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'product_remark', title: __('Product_remark')},
                         //{field: 'product_user_id', title: __('Product_user_id'), operate: 'LIKE'},
                         {field: 'product_user_name', title: __('Product_user_name'), operate: 'LIKE'},
+                        {field: 'product_user_contact', title: __('Product_user_contact'), operate: 'LIKE'},
                         {field: 'product_tel', title: __('Product_tel'), operate: 'LIKE'},
                         {field: 'product_address', title: __('Product_address'), operate: 'LIKE'},
                         {field: 'product_sale_type', title: __('Product_sale_type'), operate: 'LIKE'},
@@ -73,7 +74,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
         	//弹窗显示开具销售单
 	         $(document).on("click",".btn-addsale",function () {
 	         	
-         	  Fast.api.open('service/corder/add?user_id='+$("#c-product_user_id").val()+'&user_name='+$("#c-product_user_name").val()+'&user_tel='+$("#c-product_tel").val()+'&user_address='+$("#c-product_address").val()+'&product_id='+$("#c-product_id").val(),'产品销售',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
+         	  Fast.api.open('service/corder/add?user_id='+$("#c-product_user_id").val()+'&user_name='+$("#c-product_user_name").val()+'&user_contact='+$("#c-product_user_contact").val()+'&user_tel='+$("#c-product_tel").val()+'&user_address='+$("#c-product_address").val()+'&product_id='+$("#c-product_id").val(),'产品销售',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
 	           area:['90%', '100%'],
 		           callback: function (data) {	
 		           //alert(data);

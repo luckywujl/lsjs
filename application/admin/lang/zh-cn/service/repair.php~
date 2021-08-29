@@ -1,0 +1,30 @@
+<?php
+
+return [
+    'Repair_id'               => '报修ID',
+    'Repair_code'             => '维修单号',
+    'Repair_datetime'         => '报修时间',
+    'Repair_service_datetime' => '预约时间',
+    'Repair_user_id'          => '客户ID',
+    'Repair_user_name'        => '维修联系人',
+    'Repair_tel'              => '联系电话',
+    'Repair_address'          => '维修地址',
+    'Repair_product_id'       => '机器ID',
+    'Repair_product_code'     => '主机编号',
+    'Repair_remark'           => '故障现象',
+    'Repair_dispatcher'       => '维修派单人',
+    'Repair_engineer'         => '维修人',
+    'Repair_isfree'           => '是否收费',
+    'Repair_isfree 0'         => '免费',
+    'Repair_isfree 1'         => '收费',
+    'Repair_amount'           => '费用',
+    'Repair_operator'         => '接单人',
+    'Repair_status'           => '工单状态',
+    'Repair_status 0'         => '建单',
+    'Repair_status 1'         => '派单',
+    'Repair_status 2'         => '完工待回访',
+    'Repair_status 3'         => '延后',
+    'Repair_status 4'         => '取消服务',
+    'Repair_status 5'         => '结单',
+    'Company_id'              => '数据归属'
+];

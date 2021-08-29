@@ -25,7 +25,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'product_id', title: __('Product_id')},
+                        //{field: 'product_id', title: __('Product_id')},
+                        {field: 'product_area', title: __('Product_area'), operate: 'LIKE'},
                         {field: 'product_code', title: __('Product_code'), operate: 'LIKE'},
                         {field: 'product_name', title: __('Product_name'), operate: 'LIKE'},
                         {field: 'product_type', title: __('Product_type'), operate: 'LIKE'},
@@ -103,9 +104,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {checkbox: true},
                         //{field: 'product_id', title: __('Product_id')},
                         {field: 'product_address', title: __('Product_address'), operate: 'LIKE'},
+                        {field: 'product_user_contact', title: __('Product_user_contact'), operate: 'LIKE'},
                         {field: 'product_tel', title: __('Product_tel'), operate: 'LIKE'},
+                        
                         {field: 'product_code', title: __('Product_code'), operate: 'LIKE'},
                         {field: 'product_name', title: __('Product_name'), operate: 'LIKE'},
+                        
                         {field: 'product_type', title: __('Product_type'), operate: 'LIKE'},
                         //{field: 'product_product_date', title: __('Product_product_date')},
                         //{field: 'product_instock_date', title: __('Product_instock_date')},
@@ -117,7 +121,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         //{field: 'product_water_gage', title: __('Product_water_gage'), operate: 'LIKE'},
                         //{field: 'product_consumable_material', title: __('Product_consumable_material'), operate: 'LIKE'},
                         //{field: 'product_remark', title: __('Product_remark')},
-                        {field: 'product_user_id', title: __('Product_user_id'), operate: 'LIKE'},
+                        //{field: 'product_user_id', title: __('Product_user_id'), operate: 'LIKE'},
                         {field: 'product_user_name', title: __('Product_user_name'), operate: 'LIKE'},
                         
                         

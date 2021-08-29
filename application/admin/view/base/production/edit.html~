@@ -1,0 +1,64 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Production_classify')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-production_classify" data-rule="required" class="form-control selectpage"  data-source="base/classify/index" data-field="classify_name" data-primary-key="classify_name" name="row[production_classify]" type="text" value="{$row.production_classify|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Production_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-production_name" data-rule="required" class="form-control" name="row[production_name]" type="text" value="{$row.production_name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Production_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-production_type"  class="form-control" name="row[production_type]" type="text" value="{$row.production_type|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Production_unit')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-production_unit" data-rule="required" class="form-control" name="row[production_unit]" type="text" value="{$row.production_unit|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Production_price')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-production_price" data-rule="required" class="form-control" name="row[production_price]" type="text" value="{$row.production_price|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Production_consumable_material')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-production_consumable_material" data-rule="required" class="form-control" name="row[production_consumable_material]" type="text" value="{$row.production_consumable_material|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Production_replacement_cycle')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-production_replacement_cycle" data-rule="required" class="form-control" name="row[production_replacement_cycle]" type="number" value="{$row.production_replacement_cycle|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Production_stock_number')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-production_stock_number" data-rule="required" class="form-control" name="row[production_stock_number]" type="text" value="{$row.production_stock_number|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Production_isrecord')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[production_isrecord]', [0=>__('Production_isrecord 0'), 1=>__('Production_isrecord 1')], $row['production_isrecord'])}
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

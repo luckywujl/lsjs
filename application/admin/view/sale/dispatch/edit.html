@@ -38,12 +38,16 @@
     </div>
     
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Log_saleman')}:</label>
+    	  <label class="control-label col-xs-12 col-sm-2">{:__('Log_user_contact')}:</label>
+        <div class="col-xs-12 col-sm-2">
+        		<input id="c-log_user_contact"  data-rule="required" class="form-control"  name="row[log_user_contact]" type="text" value="{$row.log_user_contact|htmlentities}">
+        </div>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Log_saleman')}:</label>
         <div class="col-xs-12 col-sm-2">
             <input id="c-log_saleman" data-rule="required" readonly="readonly" class="form-control"  name="row[log_saleman]" type="text" value="{$row.log_saleman|htmlentities}">
         </div>
         <label class="control-label col-xs-12 col-sm-1">{:__('Log_operator')}:</label>
-        <div class="col-xs-12 col-sm-5">
+        <div class="col-xs-12 col-sm-2">
             <input id="c-log_operator" data-rule="required" class="form-control selectpage" data-source="auth/admin/index" data-field="nickname" data-primary-key="nickname" name="row[log_operator]" type="text" value="{$row.log_operator|htmlentities}">
         </div>
     </div>
