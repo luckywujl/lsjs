@@ -57,10 +57,10 @@ class Mytask extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
 
             $list = $this->model
-            	 ->field('log_code,log_type,log_date,log_saleman,log_user_id,log_user_name,log_tel,log_address,log_operator,log_status,count(*) as tasknumber')
+            	 ->field('log_code,log_type,log_date,log_saleman,log_user_id,log_user_name,log_user_contact,log_tel,log_address,log_operator,log_status,count(*) as tasknumber')
                 ->where($where)
                 ->where(['log_operator'=>$this->auth->nickname,'log_status'=>['in',[1,2,3,4]]])  //只求我的和未结单的
-                ->group('log_code,log_type,log_date,log_saleman,log_user_id,log_user_name,log_tel,log_address,log_operator,log_status')
+                ->group('log_code,log_type,log_date,log_saleman,log_user_id,log_user_name,log_user_contact,log_tel,log_address,log_operator,log_status')
                 ->order($sort, $order)
                 ->paginate($limit);
 
@@ -77,9 +77,9 @@ class Mytask extends Backend
     {
         $log_status = $this->request->param('log_status'); 
         $list = $this->model
-            	 ->field('log_code,log_type,log_date,log_user_name,log_user_id,log_tel,log_address,log_operator,log_status,company_id,count(*) as tasknumber')
+            	 ->field('log_code,log_type,log_date,log_user_name,log_user_contact,log_user_id,log_tel,log_address,log_operator,log_status,company_id,count(*) as tasknumber')
                 ->where(['log_operator'=>$this->auth->nickname,'log_code'=>$ids,'log_status'=>$log_status,'company_id'=>$this->auth->company_id])  //只求我的和未结单的
-                ->group('log_code,log_type,log_date,log_user_name,log_user_id,log_tel,log_address,log_operator,log_status,company_id')
+                ->group('log_code,log_type,log_date,log_user_name,log_user_contact,log_user_id,log_tel,log_address,log_operator,log_status,company_id')
                 ->select();
         $row = $list[0];
        // $row = $this->model->where(['log_code'=>$ids])->find();
@@ -176,7 +176,7 @@ class Mytask extends Backend
         		->where(['production_name'=>$info_info['product_name'],'production_type'=>$info_info['product_type'],'company_id'=>$this->auth->company_id])
         		->find();
         if($row['log_type']!=='售后维修') {
-          $info_info['product_replacement_date'] = time()+$production_info['production_replacement_cycle']*30*86400;//改为按月计算了
+          $info_info['product_replacement_date'] = time()+$production_info['production_replacement_cycle']/12*365*86400;//改为按月计算了
         }
         $adminIds = $this->getDataLimitAdminIds();
         if (is_array($adminIds)) {

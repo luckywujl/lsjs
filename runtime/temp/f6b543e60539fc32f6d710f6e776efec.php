@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:101:"/home/www/admin/localhost_9006/wwwroot/public/../application/admin/view/service/consumables/edit.html";i:1630151014;s:81:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:78:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:80:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:101:"/home/www/admin/localhost_9006/wwwroot/public/../application/admin/view/service/consumables/edit.html";i:1630377710;s:81:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:78:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:80:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -174,7 +174,7 @@
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('沟通状态'); ?>:</label>
-        <div class="col-xs-12 col-sm-5">
+        <div class="col-xs-12 col-sm-4">
             
             <div class="radio">
             <?php if(is_array($productStatusList) || $productStatusList instanceof \think\Collection || $productStatusList instanceof \think\Paginator): if( count($productStatusList)==0 ) : echo "" ;else: foreach($productStatusList as $key=>$vo): ?>
@@ -188,6 +188,7 @@
             <input id="c-product_user_contact" class="form-control" name="row[product_user_contact]" type="text" value="<?php echo htmlentities($row['product_user_contact']); ?>">
         </div>
         <button type="button" class="btn btn-info btn-addsale"><?php echo __('销售开单'); ?></button>
+        <button type="button" class="btn btn-success btn-viewall"><?php echo __('查看全部'); ?></button>
     </div>
     <div class="form-group">
         

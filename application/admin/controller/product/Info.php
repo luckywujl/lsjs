@@ -29,7 +29,7 @@ class Info extends Backend
     protected $dataLimit = 'personal';
     protected $dataLimitField = 'company_id';
     protected $searchFields = ['product_user_name','product_tel','product_address','product_name','product_type'];
-    protected $noNeedRight = ['finduser'];
+    protected $noNeedRight = ['finduser','viewall'];
 
 
     public function _initialize()
@@ -46,6 +46,43 @@ class Info extends Backend
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
+     /**
+     * 查看
+     */
+    public function viewall()
+    {
+        //设置过滤方法
+        $this->request->filter(['strip_tags', 'trim']);
+        $user_id = $this->request->param('user_id');//接收过滤条件
+        if ($this->request->isAjax()) {
+            //如果发送的来源是Selectpage，则转发到Selectpage
+            if ($this->request->request('keyField')) {
+                return $this->selectpage();
+            }
+            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+
+             if (!empty($user_id)){
+             	$list = $this->model
+                ->where($where)
+                ->where('product_user_id',$user_id)
+                ->order($sort, $order)
+                ->paginate($limit);
+             }else {
+             	$list = $this->model
+                ->where($where)
+                ->order($sort, $order)
+                ->paginate($limit);
+             }
+            
+
+            $result = array("total" => $list->total(), "rows" => $list->items());
+
+            return json($result);
+        }
+        return $this->view->fetch();
+    }
+     
+     
     /**
      * 查找客户
      */

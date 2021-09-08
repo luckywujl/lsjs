@@ -123,10 +123,11 @@
 
         </div>
         <label class="control-label col-xs-12 col-sm-1">{:__('Product_user_contact')}:</label>
-        <div class="col-xs-12 col-sm-2">
+        <div class="col-xs-12 col-sm-1">
             <input id="c-product_user_contact" class="form-control" name="row[product_user_contact]" type="text" value="{$row.product_user_contact|htmlentities}">
         </div>
         <button type="button" class="btn btn-info btn-addsale">{:__('销售开单')}</button>
+        <button type="button" class="btn btn-info btn-viewall">{:__('查看全部')}</button>
     </div>
     <div class="form-group">
         

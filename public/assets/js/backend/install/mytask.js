@@ -32,6 +32,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'tasknumber', title: __('Tasknumber'), operate: 'LIKE'},
                         //{field: 'log_remark', title: __('Log_remark'), operate: 'LIKE'},
                         {field: 'log_user_name', title: __('Log_user_name'), operate: 'LIKE'},
+                        {field: 'log_user_contact', title: __('Log_user_contact'), operate: 'LIKE'},
                         {field: 'log_address', title: __('Log_address'), operate: 'LIKE'},
                         {field: 'log_tel', title: __('Log_tel'), operate: 'LIKE'},
                         //{field: 'log_user_id', title: __('Log_user_id')},
@@ -122,11 +123,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             })
             //弹窗显示开具销售单
 	         $(document).on("click",".btn-addsale",function () {
-	           if ($("#c-repair_user_id").val()!=='') {
+	           if ($("#c-log_user_id").val()!=='') {
 	           var inDate = new Date();
 	           var order_service_datetime = inDate.getFullYear()+'-'+(inDate.getMonth()+1)+'-'+inDate.getDate()+" "+inDate.getHours()+':'+inDate.getMinutes()+':'+inDate.getSeconds();
          		
-         	  Fast.api.open('service/rorder/add?user_id='+$("#c-log_user_id").val()+'&user_name='+$("#c-log_user_name").val()+'&user_tel='+$("#c-log_tel").val()+'&user_address='+$("#c-log_address").val()+'&engineer='+$("#c-log_operator").val()+'&service_datetime='+order_service_datetime,'产品销售',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
+         	  Fast.api.open('service/rorder/add?user_id='+$("#c-log_user_id").val()+'&user_name='+$("#c-log_user_name").val()+'&user_tel='+$("#c-log_tel").val()+'&user_address='+$("#c-log_address").val()+'&engineer='+$("#c-log_operator").val()+'&service_datetime='+order_service_datetime+'&user_contact='+$("#c-log_user_contact").val(),'产品销售',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
 	           area:['90%', '90%'],
 		           callback: function (data) {	
 		           //alert(data);

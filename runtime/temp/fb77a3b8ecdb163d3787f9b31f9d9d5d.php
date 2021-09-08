@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:96:"/home/www/admin/localhost_9006/wwwroot/public/../application/admin/view/install/mytask/edit.html";i:1630134400;s:81:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:78:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:80:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:96:"/home/www/admin/localhost_9006/wwwroot/public/../application/admin/view/install/mytask/edit.html";i:1630381233;s:81:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/layout/default.html";i:1626771292;s:78:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/common/meta.html";i:1626771292;s:80:"/home/www/admin/localhost_9006/wwwroot/application/admin/view/common/script.html";i:1626771292;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -89,6 +89,13 @@
         </div>
         <div class="col-xs-12 col-sm-8">
             <input id="c-log_user_name" readonly="readonly" class="form-control" name="row[log_user_name]" type="text" value="<?php echo htmlentities($row['log_user_name']); ?>">
+        </div>
+    </div>
+     <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Log_user_contact'); ?>:</label>
+       
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-log_user_contact" readonly="readonly" class="form-control" name="row[log_user_contact]" type="text" value="<?php echo htmlentities($row['log_user_contact']); ?>">
         </div>
     </div>
     <div class="form-group">

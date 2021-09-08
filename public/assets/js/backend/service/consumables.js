@@ -89,6 +89,24 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 	       	    }
 	            });
 	         });
+	         //弹窗显示开具销售单
+	         $(document).on("click",".btn-viewall",function () {
+	         	
+         	  Fast.api.open('product/info/viewall?user_id='+$("#c-product_user_id").val(),$("#c-product_user_name").val()+'的所有机器',{//?card_code=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype, __('Choose'), {
+	           area:['90%', '100%'],
+		           callback: function (data) {	
+		           //alert(data);
+		           
+		           //$("#c-order_user_id").val(data);
+		           //$("#c-order_user_id").selectPageRefresh();
+		           //var id = $("#c-order_user_id").val();
+       	 		//清空客户其它信息，待POST返回数据填写，
+       	 		
+	       	    },function (data) {
+	       	    	
+	       	    }
+	            });
+	         });
             Controller.api.bindevent();
         },
         api: {
